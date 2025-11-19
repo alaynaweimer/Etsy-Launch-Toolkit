@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etsy Launch Toolkit - Discover Your Success with Alayna Marie</title>
+<!--
+═══════════════════════════════════════════════════════════════════════
+  ETSY LAUNCH TOOLKIT
+  
+  Copyright © 2025 Alayna Marie Weimer. All Rights Reserved.
+  
+  PROPRIETARY AND CONFIDENTIAL
+  
+  CREATOR & COPYRIGHT HOLDER: Alayna Marie Weimer (individual)
+  PERSONAL BRAND: Discover Your Success with Alayna Marie
+  
+  This tool is available by paid license only.
+  Use outside of authorized licensed access is strictly prohibited.
+  
+  FOR INQUIRIES:
+  Email: alayna@ignitepositivechanges.com
+═══════════════════════════════════════════════════════════════════════
+-->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #FFD93D 0%, #F4A261 50%, #E76F51 100%);
+            min-height: 100vh;
+            padding-bottom: 40px;
+        }
+
+        /* Password Protection Overlay */
+        #passwordOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #FFD93D 0%, #F4A261 50%, #E76F51 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        #passwordOverlay.hidden {
+            display: none;
+        }
+
+        .password-box {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .password-box h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.8em;
+        }
+
+        .password-box p {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .password-box input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+
+        .password-box input:focus {
+            outline: none;
+            border-color: #F4A261;
+        }
+
+        .password-box button {
+            width: 100%;
+            background: linear-gradient(135deg, #FFD93D 0%, #F4A261 100%);
+            color: #2c3e50;
+            border: none;
+            padding: 15px;
+            font-size: 1.1em;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: transform 0.2s;
+        }
+
+        .password-box button:hover {
+            transform: translateY(-2px);
+        }
+
+        .error-message {
+            color: #dc2626;
+            margin-top: 15px;
+            font-size: 0.9em;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo-text {
+            font-size: 3em;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .logo-subtitle {
+            font-size: 1.5em;
+            color: #F4A261;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .powered-by {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .brand-name {
+            font-size: 1.1em;
+            color: #F4A261;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        /* Benefits Banner */
+        .benefits-banner {
+            background: linear-gradient(180deg, #ffffff 0%, #FFE8CC 50%);
+            border: 3px solid #FFD93D;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 6px 20px rgba(244, 162, 97, 0.3);
+        }
+
+        .benefits-banner h2 {
+            color: #2c3e50;
+            font-size: 1.6em;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: start;
+            margin: 15px 0;
+            padding: 12px;
+            background: white;
+            border-radius: 10px;
+            border-left: 4px solid #F4A261;
+        }
+
+        .benefit-icon {
+            font-size: 1.5em;
+            margin-right: 15px;
+            min-width: 30px;
+        }
+
+        .benefit-text {
+            flex: 1;
+        }
+
+        .benefit-text strong {
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 5px;
+            font-size: 1.1em;
+        }
+
+        .benefit-text p {
+            color: #666;
+            margin: 0;
+        }
+
+        /* Why This Matters Section */
+        .why-matters {
+            background: white;
+            border-radius: 15px;
+            padding: 35px;
+            margin-bottom: 30px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            border-top: 5px solid #FFD93D;
+        }
+
+        .why-matters h2 {
+            color: #2c3e50;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .why-matters p {
+            color: #2c3e50;
+            font-size: 1.05em;
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .why-matters ul {
+            margin: 20px 0 20px 25px;
+        }
+
+        .why-matters li {
+            color: #2c3e50;
+            margin: 10px 0;
+            font-size: 1.05em;
+        }
+
+        /* Tools Section Header */
+        .tools-section-header {
+            text-align: center;
+            margin: 40px 0 30px;
+        }
+
+        .tools-section-header h2 {
+            color: #2c3e50;
+            font-size: 2.2em;
+            font-weight: 700;
+            background: white;
+            display: inline-block;
+            padding: 15px 40px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 15px;
+            padding: 35px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            border-top: 5px solid #FFD93D;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 35px rgba(244, 162, 97, 0.4);
+            border-top-color: #F4A261;
+        }
+
+        .tool-icon {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .tool-card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.6em;
+            font-weight: 700;
+        }
+
+        .tool-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-size: 1.05em;
+        }
+
+        .tool-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #FFD93D 0%, #F4A261 100%);
+            color: #2c3e50;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.85em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Footer */
+        .footer {
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            margin-top: 40px;
+        }
+
+        .footer p {
+            color: #666;
+            margin: 10px 0;
+            font-size: 1.05em;
+        }
+
+        .footer .brand-name {
+            color: #F4A261;
+            font-weight: 700;
+            font-size: 1.2em;
+            margin: 15px 0;
+        }
+
+        .footer .copyright {
+            color: #999;
+            font-size: 0.9em;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .logo-text {
+                font-size: 2em;
+            }
+
+            .logo-subtitle {
+                font-size: 1.2em;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .benefits-banner,
+            .why-matters {
+                padding: 20px;
+            }
+
+            .password-box {
+                margin: 20px;
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Password Protection Overlay -->
+    <div id="passwordOverlay">
+        <div class="password-box">
+            <h2>🔐 Welcome!</h2>
+            <p>Please enter your password to access your toolkit</p>
+            <input type="password" id="passwordInput" placeholder="Enter password" autocomplete="off">
+            <button onclick="checkPassword()">Access My Toolkit</button>
+            <div class="error-message" id="errorMessage">Incorrect password. Please try again.</div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo-text">Discover Your Success</div>
+            <div class="logo-subtitle">with Alayna Marie</div>
+            <h1>🛍️ Etsy Launch Toolkit</h1>
+            <p class="subtitle">Your Complete Resource Suite for Building a Profitable Etsy Shop</p>
+        </div>
+
+        <!-- Why This Matters Section -->
+        <div class="why-matters">
+            <h2>📚 Why This Toolkit Exists</h2>
+            <p>Launching an Etsy shop can feel overwhelming. Between pricing products, understanding fees, planning your launch, and setting realistic goals, it's easy to make costly mistakes that hurt your profitability before you even get started.</p>
+            
+            <p><strong>That's where this toolkit comes in.</strong></p>
+            
+            <p>I've watched countless aspiring Etsy sellers struggle with the same challenges:</p>
+            <ul>
+                <li>Pricing products too low and losing money on every sale</li>
+                <li>Being blindsided by Etsy's fee structure</li>
+                <li>Not knowing how many sales they need to break even</li>
+                <li>Feeling paralyzed by endless to-do lists without a clear plan</li>
+            </ul>
+            
+            <p>Each tool in this suite solves a specific, critical problem that every Etsy seller faces. Whether you're selling handmade crafts, vintage finds, or digital downloads, you need to know your numbers and have a solid plan.</p>
+            
+            <p><strong>This toolkit gives you both.</strong> Clear calculations, personalized guidance, and actionable next steps—all in simple, easy-to-use formats that work on any device.</p>
+        </div>
+
+        <!-- Benefits Banner -->
+        <div class="benefits-banner">
+            <h2>✨ What You'll Accomplish with This Toolkit</h2>
+            
+            <div class="benefit-item">
+                <div class="benefit-icon">💰</div>
+                <div class="benefit-text">
+                    <strong>Price with Confidence</strong>
+                    <p>Calculate the perfect price that covers all costs, Etsy fees, and delivers your desired profit margin. Never undercharge again.</p>
+                </div>
+            </div>
+
+            <div class="benefit-item">
+                <div class="benefit-icon">🧮</div>
+                <div class="benefit-text">
+                    <strong>Understand Every Fee</strong>
+                    <p>See exactly what Etsy takes from each sale so there are no surprises. Know your net profit before listing.</p>
+                </div>
+            </div>
+
+            <div class="benefit-item">
+                <div class="benefit-icon">📊</div>
+                <div class="benefit-text">
+                    <strong>Set Realistic Goals</strong>
+                    <p>Know exactly how many sales you need to break even and become profitable. Track your progress with clarity.</p>
+                </div>
+            </div>
+
+            <div class="benefit-item">
+                <div class="benefit-icon">📋</div>
+                <div class="benefit-text">
+                    <strong>Launch with a Plan</strong>
+                    <p>Get a personalized, step-by-step checklist tailored to your products, timeline, and goals. No more guesswork.</p>
+                </div>
+            </div>
+
+            <div class="benefit-item">
+                <div class="benefit-icon">⏱️</div>
+                <div class="benefit-text">
+                    <strong>Save Countless Hours</strong>
+                    <p>Skip the spreadsheets, research, and trial-and-error. Get professional calculations instantly.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tools Section -->
+        <div class="tools-section-header">
+            <h2>🎯 Your Professional Tools</h2>
+        </div>
+
+        <div class="tools-grid">
+            <a href="etsy-shop-planner.html" class="tool-card">
+                <div class="tool-icon">📋</div>
+                <h3>Etsy Shop Planner</h3>
+                <p>Answer a few questions about your products, timeline, and goals—then get a completely personalized, step-by-step launch checklist. Know exactly what to do next.</p>
+                <span class="tool-badge">Start Here</span>
+            </a>
+
+            <a href="pricing-calculator.html" class="tool-card">
+                <div class="tool-icon">💰</div>
+                <h3>Pricing Calculator</h3>
+                <p>Enter your material costs, time, and desired profit margin. Get the perfect price that covers everything—including Etsy's fees, shipping, and your labor.</p>
+                <span class="tool-badge">Essential</span>
+            </a>
+
+            <a href="fee-calculator.html" class="tool-card">
+                <div class="tool-icon">🧮</div>
+                <h3>Etsy Fee Calculator</h3>
+                <p>See exactly what Etsy takes from each sale: listing fees, transaction fees, payment processing, and optional ad costs. No surprises, just clarity.</p>
+                <span class="tool-badge">Must Have</span>
+            </a>
+
+            <a href="breakeven-calculator.html" class="tool-card">
+                <div class="tool-icon">📊</div>
+                <h3>Break-Even Calculator</h3>
+                <p>Input your startup and monthly costs. Find out exactly how many sales you need to cover expenses and start making profit.</p>
+                <span class="tool-badge">Plan Ahead</span>
+            </a>
+
+            <a href="listing-scorecard.html" class="tool-card">
+                <div class="tool-icon">⭐</div>
+                <h3>Listing Optimization Scorecard</h3>
+                <p>Rate your Etsy listings on photos, SEO, descriptions, and more. Get a score out of 100 with specific recommendations to boost sales.</p>
+                <span class="tool-badge">Boost Sales</span>
+            </a>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Ready to launch your successful Etsy shop? Use these tools as many times as you need—they're yours forever.</p>
+            <p class="brand-name">Discover Your Success with Alayna Marie</p>
+            <p>Empowering entrepreneurs to build profitable, sustainable businesses</p>
+            <p class="copyright">© 2025 Alayna Marie Weimer. All Rights Reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        const CORRECT_PASSWORD = "LaunchMyShop2025";
+
+        // Check if already authenticated
+        window.addEventListener('DOMContentLoaded', function() {
+            if (sessionStorage.getItem('etsyToolkitAuth') === 'true') {
+                document.getElementById('passwordOverlay').classList.add('hidden');
+            }
+        });
+
+        function checkPassword() {
+            const input = document.getElementById('passwordInput').value;
+            const errorMessage = document.getElementById('errorMessage');
+
+            if (input === CORRECT_PASSWORD) {
+                sessionStorage.setItem('etsyToolkitAuth', 'true');
+                document.getElementById('passwordOverlay').classList.add('hidden');
+                errorMessage.classList.remove('show');
+            } else {
+                errorMessage.classList.add('show');
+                document.getElementById('passwordInput').value = '';
+                document.getElementById('passwordInput').focus();
+            }
+        }
+
+        // Allow Enter key to submit password
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+    </script>
+</body>
+</html>

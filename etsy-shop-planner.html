@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etsy Shop Planner - Discover Your Success with Alayna Marie</title>
+<!--
+═══════════════════════════════════════════════════════════════════════
+  ETSY SHOP PLANNER
+  Copyright © 2025 Alayna Marie Weimer. All Rights Reserved.
+  BRAND: Discover Your Success with Alayna Marie
+  For inquiries: alayna@ignitepositivechanges.com
+═══════════════════════════════════════════════════════════════════════
+-->
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #FFD93D 0%, #F4A261 50%, #E76F51 100%);
+            min-height: 100vh;
+            padding-bottom: 40px;
+        }
+        #passwordOverlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, #FFD93D 0%, #F4A261 50%, #E76F51 100%);
+            display: flex; align-items: center; justify-content: center; z-index: 9999;
+        }
+        #passwordOverlay.hidden { display: none; }
+        .password-box {
+            background: white; padding: 40px; border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); max-width: 400px; width: 90%; text-align: center;
+        }
+        .password-box h2 { color: #2c3e50; margin-bottom: 10px; font-size: 1.8em; }
+        .password-box p { color: #666; margin-bottom: 30px; }
+        .password-box input {
+            width: 100%; padding: 15px; border: 2px solid #e0e0e0;
+            border-radius: 10px; font-size: 1.1em; margin-bottom: 20px;
+        }
+        .password-box input:focus { outline: none; border-color: #F4A261; }
+        .password-box button {
+            width: 100%; background: linear-gradient(135deg, #FFD93D 0%, #F4A261 100%);
+            color: #2c3e50; border: none; padding: 15px; font-size: 1.1em;
+            border-radius: 10px; cursor: pointer; font-weight: 700;
+        }
+        .error-message { color: #dc2626; margin-top: 15px; font-size: 0.9em; display: none; }
+        .error-message.show { display: block; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+        .header {
+            background: white; border-radius: 20px; padding: 30px 20px;
+            text-align: center; margin-bottom: 30px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        .back-link {
+            display: inline-block; color: #F4A261; text-decoration: none;
+            margin-bottom: 15px; font-weight: 600;
+        }
+        .back-link:hover { text-decoration: underline; }
+        .logo-text {
+            font-size: 2.5em; font-weight: 700; color: #2c3e50; margin-bottom: 10px;
+        }
+        .logo-subtitle { font-size: 1.2em; color: #F4A261; font-weight: 600; margin-bottom: 20px; }
+        .header h1 { color: #2c3e50; font-size: 2.2em; margin-bottom: 10px; font-weight: 700; }
+        .why-matters {
+            background: white; border-radius: 15px; padding: 35px; margin-bottom: 30px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); border-top: 5px solid #FFD93D;
+        }
+        .why-matters h2 { color: #2c3e50; font-size: 1.8em; margin-bottom: 20px; font-weight: 700; }
+        .why-matters p { color: #2c3e50; font-size: 1.05em; margin-bottom: 15px; line-height: 1.7; }
+        .why-matters strong { color: #F4A261; }
+        .benefits-banner {
+            background: linear-gradient(180deg, #ffffff 0%, #FFE8CC 50%);
+            border: 3px solid #FFD93D; border-radius: 15px; padding: 30px; margin-bottom: 30px;
+            box-shadow: 0 6px 20px rgba(244, 162, 97, 0.3);
+        }
+        .benefits-banner h2 {
+            color: #2c3e50; font-size: 1.6em; margin-bottom: 20px; text-align: center; font-weight: 700;
+        }
+        .benefit-item {
+            display: flex; align-items: start; margin: 15px 0; padding: 12px;
+            background: white; border-radius: 10px; border-left: 4px solid #F4A261;
+        }
+        .benefit-icon { font-size: 1.5em; margin-right: 15px; min-width: 30px; }
+        .benefit-text strong { color: #2c3e50; display: block; margin-bottom: 5px; }
+        .benefit-text p { color: #666; margin: 0; }
+        .content-box {
+            background: white; border-radius: 15px; padding: 40px;
+            margin-bottom: 30px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+        .section {
+            margin-bottom: 30px; padding: 25px; background: #f8f9fa;
+            border-radius: 12px; border-left: 5px solid #F4A261;
+        }
+        .section h2 { color: #2c3e50; font-size: 1.5em; margin-bottom: 20px; font-weight: 700; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; color: #2c3e50; font-weight: 600; font-size: 1.05em; }
+        .help-text { font-size: 0.85em; color: #666; margin-top: 4px; font-style: italic; }
+        input[type="number"], input[type="text"], select {
+            width: 100%; padding: 14px; border: 2px solid #e0e0e0;
+            border-radius: 8px; font-size: 1em; transition: border-color 0.3s;
+        }
+        input:focus, select:focus { outline: none; border-color: #F4A261; box-shadow: 0 0 0 3px rgba(244, 162, 97, 0.1); }
+        .checkbox-group {
+            display: flex; align-items: center; gap: 10px; padding: 15px;
+            background: white; border-radius: 8px; margin-bottom: 15px;
+        }
+        input[type="checkbox"] { width: 20px; height: 20px; cursor: pointer; }
+        .radio-group {
+            display: flex; flex-direction: column; gap: 10px;
+        }
+        .radio-option {
+            display: flex; align-items: center; gap: 10px; padding: 15px;
+            background: white; border-radius: 8px; cursor: pointer; border: 2px solid #e0e0e0;
+            transition: all 0.3s;
+        }
+        .radio-option:hover { border-color: #F4A261; }
+        .radio-option input[type="radio"] { width: 20px; height: 20px; cursor: pointer; }
+        .radio-option.selected { border-color: #F4A261; background: #fff8f0; }
+        .calculate-btn {
+            width: 100%; background: linear-gradient(135deg, #FFD93D 0%, #F4A261 100%);
+            color: #2c3e50; border: none; padding: 18px; font-size: 1.3em;
+            border-radius: 12px; cursor: pointer; font-weight: 700; margin-top: 20px;
+            transition: transform 0.2s, box-shadow 0.2s; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .calculate-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(244, 162, 97, 0.4); }
+        .results { display: none; margin-top: 30px; }
+        .results.show { display: block; }
+        .timeline-header {
+            background: linear-gradient(135deg, #FFD93D 0%, #F4A261 100%);
+            padding: 30px; border-radius: 15px; text-align: center; margin-bottom: 30px;
+            box-shadow: 0 6px 20px rgba(244, 162, 97, 0.3);
+        }
+        .timeline-header h2 { color: #2c3e50; font-size: 2em; margin-bottom: 10px; font-weight: 700; }
+        .timeline-header p { color: #2c3e50; font-size: 1.1em; }
+        .phase {
+            background: white; border-radius: 15px; padding: 30px; margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); border-left: 6px solid #F4A261;
+        }
+        .phase-header {
+            display: flex; align-items: center; margin-bottom: 20px; padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        .phase-icon {
+            font-size: 2.5em; margin-right: 15px;
+        }
+        .phase-title h3 { color: #2c3e50; font-size: 1.6em; margin-bottom: 5px; font-weight: 700; }
+        .phase-title .duration { color: #F4A261; font-weight: 600; font-size: 0.95em; }
+        .checklist-item {
+            display: flex; align-items: start; padding: 15px; margin-bottom: 12px;
+            background: #f8f9fa; border-radius: 8px; border-left: 4px solid #10b981;
+        }
+        .checklist-item.priority { border-left-color: #dc2626; }
+        .checklist-checkbox {
+            min-width: 24px; height: 24px; border: 2px solid #10b981;
+            border-radius: 6px; margin-right: 15px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            background: white; transition: all 0.3s;
+        }
+        .checklist-checkbox.priority { border-color: #dc2626; }
+        .checklist-checkbox:hover { transform: scale(1.1); }
+        .checklist-checkbox.checked { background: #10b981; }
+        .checklist-checkbox.checked::after { 
+            content: '✓'; color: white; font-weight: bold; font-size: 1.2em;
+        }
+        .checklist-content { flex: 1; }
+        .checklist-content strong { color: #2c3e50; display: block; margin-bottom: 5px; font-size: 1.05em; }
+        .checklist-content p { color: #666; margin: 0; line-height: 1.6; }
+        .priority-badge {
+            display: inline-block; background: #dc2626; color: white;
+            padding: 3px 10px; border-radius: 4px; font-size: 0.75em;
+            font-weight: 700; text-transform: uppercase; margin-left: 10px;
+        }
+        .tip-box {
+            background: #e3f2fd; border-left: 5px solid #2196f3; padding: 25px;
+            border-radius: 10px; margin-top: 25px;
+        }
+        .tip-box strong { color: #1976d2; display: block; margin-bottom: 15px; font-size: 1.15em; }
+        .tip-box p { color: #2c3e50; margin: 12px 0; line-height: 1.7; }
+        .footer {
+            background: white; border-radius: 15px; padding: 30px; margin-top: 30px;
+            text-align: center; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+        .footer p { color: #666; margin: 8px 0; }
+        .footer a { color: #F4A261; text-decoration: none; font-weight: 600; }
+        .footer a:hover { text-decoration: underline; }
+        .footer .brand-name { color: #2c3e50; font-weight: 700; font-size: 1.2em; margin-top: 15px; }
+        .footer .copyright { color: #999; font-size: 0.9em; margin-top: 10px; }
+        @media (max-width: 768px) {
+            .logo-text { font-size: 1.8em; }
+            .header h1 { font-size: 1.6em; }
+            .phase-header { flex-direction: column; text-align: center; }
+            .phase-icon { margin-right: 0; margin-bottom: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <div id="passwordOverlay">
+        <div class="password-box">
+            <h2>🔐 Access Required</h2>
+            <p>Enter the password to access the Etsy Launch Toolkit</p>
+            <input type="password" id="passwordInput" placeholder="Enter password">
+            <button onclick="checkPassword()">Unlock Toolkit</button>
+            <div id="errorMessage" class="error-message">❌ Incorrect password. Please try again.</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <a href="index.html" class="back-link">← Back to Toolkit Hub</a>
+            <div class="logo-text">Discover Your Success</div>
+            <div class="logo-subtitle">with Alayna Marie</div>
+            <h1>🗓️ Etsy Shop Planner</h1>
+        </div>
+
+        <div class="why-matters">
+            <h2>🎯 Why This Matters</h2>
+            <p>Opening an Etsy shop without a plan is like building a house without blueprints. You might get something built, but it won't be structurally sound and you'll waste time, money, and energy fixing avoidable mistakes.</p>
+            <p>Most new sellers jump straight to listing products without establishing their brand foundation, understanding their market, or setting up proper systems. Then they wonder why sales are slow or why they're overwhelmed managing everything.</p>
+            <p><strong>The Problem:</strong> Research shows that shops with a structured launch plan are 3x more likely to reach profitability within their first 6 months. Without a roadmap, you're guessing at what needs to be done and in what order.</p>
+            <p>This planner creates a <strong>personalized, step-by-step action plan</strong> based on your specific situation—whether you're starting from scratch, have some products ready, or need to optimize an existing shop.</p>
+        </div>
+
+        <div class="benefits-banner">
+            <h2>✨ What You'll Get</h2>
+            <div class="benefit-item">
+                <div class="benefit-icon">🗺️</div>
+                <div class="benefit-text">
+                    <strong>Personalized Launch Roadmap</strong>
+                    <p>Custom checklist tailored to your timeline and product type</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">⏰</div>
+                <div class="benefit-text">
+                    <strong>Realistic Timelines</strong>
+                    <p>Know exactly how long each phase should take based on your availability</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">✅</div>
+                <div class="benefit-text">
+                    <strong>Priority Tasks Highlighted</strong>
+                    <p>Focus on high-impact activities that drive sales and avoid busywork</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">📋</div>
+                <div class="benefit-text">
+                    <strong>Nothing Gets Missed</strong>
+                    <p>Complete checklist covering branding, legal, listings, marketing, and more</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">🎯</div>
+                <div class="benefit-text">
+                    <strong>Strategic Sequencing</strong>
+                    <p>Tasks organized in the right order so you build on solid foundations</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-box">
+            <div class="section">
+                <h2>📝 Tell Us About Your Shop</h2>
+                
+                <div class="form-group">
+                    <label>What's your current status?</label>
+                    <div class="radio-group">
+                        <div class="radio-option" onclick="selectRadio('status', 'not-started')">
+                            <input type="radio" name="status" value="not-started" id="statusNotStarted">
+                            <label for="statusNotStarted" style="margin: 0; cursor: pointer;">Haven't started yet—just an idea</label>
+                        </div>
+                        <div class="radio-option" onclick="selectRadio('status', 'products-ready')">
+                            <input type="radio" name="status" value="products-ready" id="statusProductsReady">
+                            <label for="statusProductsReady" style="margin: 0; cursor: pointer;">I have products ready to sell</label>
+                        </div>
+                        <div class="radio-option" onclick="selectRadio('status', 'shop-open')">
+                            <input type="radio" name="status" value="shop-open" id="statusShopOpen">
+                            <label for="statusShopOpen" style="margin: 0; cursor: pointer;">Shop is open but needs optimization</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>What type of products will you sell?</label>
+                    <select id="productType">
+                        <option value="">Select your product category</option>
+                        <option value="handmade">Handmade/Crafted Items</option>
+                        <option value="digital">Digital Downloads</option>
+                        <option value="vintage">Vintage Items</option>
+                        <option value="supplies">Craft Supplies</option>
+                        <option value="print-on-demand">Print-on-Demand</option>
+                    </select>
+                    <div class="help-text">This will customize your checklist for product-specific requirements</div>
+                </div>
+
+                <div class="form-group">
+                    <label>How much time can you dedicate weekly?</label>
+                    <div class="radio-group">
+                        <div class="radio-option" onclick="selectRadio('timeCommitment', '5-10')">
+                            <input type="radio" name="timeCommitment" value="5-10" id="time5">
+                            <label for="time5" style="margin: 0; cursor: pointer;">5-10 hours (Side hustle pace)</label>
+                        </div>
+                        <div class="radio-option" onclick="selectRadio('timeCommitment', '10-20')">
+                            <input type="radio" name="timeCommitment" value="10-20" id="time10">
+                            <label for="time10" style="margin: 0; cursor: pointer;">10-20 hours (Part-time pace)</label>
+                        </div>
+                        <div class="radio-option" onclick="selectRadio('timeCommitment', '20+')">
+                            <input type="radio" name="timeCommitment" value="20+" id="time20">
+                            <label for="time20" style="margin: 0; cursor: pointer;">20+ hours (Full-time pace)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Your launch goal</label>
+                    <div class="radio-group">
+                        <div class="radio-option" onclick="selectRadio('goal', 'quick')">
+                            <input type="radio" name="goal" value="quick" id="goalQuick">
+                            <label for="goalQuick" style="margin: 0; cursor: pointer;">Get open ASAP (minimal setup)</label>
+                        </div>
+                        <div class="radio-option" onclick="selectRadio('goal', 'quality')">
+                            <input type="radio" name="goal" value="quality" id="goalQuality">
+                            <label for="goalQuality" style="margin: 0; cursor: pointer;">Build strong foundation (thorough setup)</label>
+                        </div>
+                        <div class="radio-option" onclick="selectRadio('goal', 'optimize')">
+                            <input type="radio" name="goal" value="optimize" id="goalOptimize">
+                            <label for="goalOptimize" style="margin: 0; cursor: pointer;">Optimize existing shop for growth</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Your Shop Name (Optional)</label>
+                    <input type="text" id="shopName" placeholder="Enter your shop name">
+                    <div class="help-text">If you have one—we'll personalize your plan!</div>
+                </div>
+
+                <button class="calculate-btn" onclick="generatePlan()">Create My Launch Plan</button>
+            </div>
+
+            <div id="results" class="results">
+                <div class="timeline-header">
+                    <h2>🎯 Your Personalized Launch Plan</h2>
+                    <p id="planSummary"></p>
+                </div>
+
+                <div id="planContent">
+                    <!-- Phases will be dynamically inserted here -->
+                </div>
+
+                <div class="tip-box">
+                    <strong>💡 How to Use This Plan</strong>
+                    <p><strong>Check Off As You Go:</strong> Click the checkbox next to each task as you complete it. This keeps you motivated and shows progress.</p>
+                    <p><strong>Priority Tasks:</strong> Items marked with a red "PRIORITY" badge are critical path activities. Complete these first in each phase.</p>
+                    <p><strong>Be Realistic:</strong> The timelines are estimates. Life happens—adjust the pace to fit your schedule without sacrificing quality.</p>
+                    <p><strong>Don't Skip Phases:</strong> Each phase builds on the previous one. Rushing through foundational steps creates problems later.</p>
+                    <p><strong>Get Support:</strong> Feeling overwhelmed? Join Etsy seller communities, take courses, or work with a coach to stay accountable.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Need professional support as you grow?</p>
+            <p><strong>Nonprofit Resources:</strong> <a href="https://igniteempowermentfoundation.org" target="_blank">igniteempowermentfoundation.org</a></p>
+            <p><strong>Fractional Services:</strong> <a href="https://www.ignitepositivechanges.com" target="_blank">www.ignitepositivechanges.com</a></p>
+            <p class="brand-name">Discover Your Success with Alayna Marie</p>
+            <p class="copyright">© 2025 Alayna Marie Weimer. All Rights Reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        const CORRECT_PASSWORD = "LaunchMyShop2025";
+        window.addEventListener('DOMContentLoaded', function() {
+            if (sessionStorage.getItem('etsyToolkitAuth') === 'true') {
+                document.getElementById('passwordOverlay').classList.add('hidden');
+            }
+        });
+        function checkPassword() {
+            const input = document.getElementById('passwordInput').value;
+            if (input === CORRECT_PASSWORD) {
+                sessionStorage.setItem('etsyToolkitAuth', 'true');
+                document.getElementById('passwordOverlay').classList.add('hidden');
+            } else {
+                document.getElementById('errorMessage').classList.add('show');
+                document.getElementById('passwordInput').value = '';
+            }
+        }
+        document.getElementById('passwordInput')?.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') checkPassword();
+        });
+
+        function selectRadio(groupName, value) {
+            document.querySelectorAll(`input[name="${groupName}"]`).forEach(radio => {
+                if (radio.value === value) {
+                    radio.checked = true;
+                    radio.closest('.radio-option').classList.add('selected');
+                } else {
+                    radio.closest('.radio-option').classList.remove('selected');
+                }
+            });
+        }
+
+        function toggleCheckbox(element) {
+            element.classList.toggle('checked');
+        }
+
+        function generatePlan() {
+            const status = document.querySelector('input[name="status"]:checked')?.value;
+            const productType = document.getElementById('productType').value;
+            const timeCommitment = document.querySelector('input[name="timeCommitment"]:checked')?.value;
+            const goal = document.querySelector('input[name="goal"]:checked')?.value;
+            const shopName = document.getElementById('shopName').value.trim();
+
+            if (!status || !productType || !timeCommitment || !goal) {
+                alert('Please complete all required fields to generate your personalized plan.');
+                return;
+            }
+
+            let shopGreeting = shopName ? `for ${shopName}` : 'for Your Shop';
+            let timeline = timeCommitment === '5-10' ? '8-12 weeks' : timeCommitment === '10-20' ? '6-8 weeks' : '4-6 weeks';
+            
+            document.getElementById('planSummary').textContent = `Your customized ${timeline} launch roadmap ${shopGreeting}`;
+
+            // Build phase content based on selections
+            let phases = [];
+
+            // Phase 1: Foundation (always included unless optimizing)
+            if (goal !== 'optimize') {
+                phases.push({
+                    icon: '🏗️',
+                    title: 'Phase 1: Foundation & Planning',
+                    duration: timeCommitment === '5-10' ? '2-3 weeks' : timeCommitment === '10-20' ? '1-2 weeks' : '1 week',
+                    tasks: [
+                        { text: 'Research Your Market & Competition', detail: 'Search Etsy for similar products. Study top sellers pricing, photography, descriptions, and reviews.', priority: true },
+                        { text: 'Define Your Brand Identity', detail: 'Choose your brand name, color palette, style, and brand voice. Create a mood board.', priority: true },
+                        { text: 'Set Up Business Legal Structure', detail: 'Register your business name, get EIN from IRS, open business bank account.' },
+                        { text: 'Create Financial Systems', detail: 'Set up bookkeeping (spreadsheet or software), create budget for startup costs.' },
+                        { text: 'Plan Your Product Line', detail: 'Decide on initial 10-20 listings. Create production timeline and cost breakdown.' },
+                        productType === 'handmade' ? { text: 'Source Materials & Supplies', detail: 'Research suppliers, order materials, set up production workspace.', priority: true } : null,
+                        productType === 'digital' ? { text: 'Create Digital Product Templates', detail: 'Design your digital products, ensure proper file formats and sizes.', priority: true } : null,
+                    ].filter(t => t !== null)
+                });
+            }
+
+            // Phase 2: Shop Setup
+            phases.push({
+                icon: '🏪',
+                title: goal === 'optimize' ? 'Phase 1: Shop Optimization Audit' : 'Phase 2: Shop Setup & Branding',
+                duration: timeCommitment === '5-10' ? '2 weeks' : timeCommitment === '10-20' ? '1-2 weeks' : '3-5 days',
+                tasks: [
+                    goal === 'optimize' ? { text: 'Audit Current Shop Performance', detail: 'Review stats, identify top/bottom performers, analyze traffic sources.', priority: true } : 
+                    { text: 'Open Your Etsy Shop Account', detail: 'Complete shop setup form, choose shop name, set preferences.', priority: true },
+                    { text: 'Design Shop Banner & Logo', detail: 'Create professional branding graphics (Canva works great). Maintain brand consistency.', priority: true },
+                    { text: 'Write Compelling Shop About Section', detail: 'Tell your story, explain what makes you unique, include your policies.', priority: true },
+                    { text: 'Set Up Shop Policies', detail: 'Return policy, shipping policy, processing times, custom order policy.' },
+                    { text: 'Configure Payment & Billing', detail: 'Set up Etsy Payments, add bank account, configure billing settings.' },
+                    { text: 'Install Shop Manager App', detail: 'Download Etsy Seller app to manage shop on the go.' },
+                    productType === 'handmade' ? { text: 'Photograph Your Products', detail: 'Natural lighting, clean backgrounds, multiple angles. Shoot 5-10 photos per item.', priority: true } : null,
+                    productType === 'digital' ? { text: 'Create Product Mockups', detail: 'Show your digital products in use with lifestyle mockups.', priority: true } : null,
+                ].filter(t => t !== null)
+            });
+
+            // Phase 3: Listings
+            phases.push({
+                icon: '📸',
+                title: goal === 'optimize' ? 'Phase 2: Listing Enhancement' : 'Phase 3: Create Your Listings',
+                duration: timeCommitment === '5-10' ? '2-3 weeks' : timeCommitment === '10-20' ? '1-2 weeks' : '1 week',
+                tasks: [
+                    { text: 'Conduct Keyword Research', detail: 'Use eRank or Marmalead to find high-traffic, low-competition keywords for your niche.', priority: true },
+                    { text: 'Write SEO-Optimized Titles', detail: 'Include primary keywords in first 40 characters. Be descriptive and specific.', priority: true },
+                    { text: 'Craft Detailed Product Descriptions', detail: 'Include dimensions, materials, care instructions, use cases. Answer common questions.', priority: true },
+                    { text: 'Select All 13 Product Tags', detail: 'Use your keyword research. Include synonyms and related terms.' },
+                    { text: 'Set Competitive Pricing', detail: 'Factor in all costs + desired profit margin. Check competitor pricing.' },
+                    { text: 'Choose Product Categories', detail: 'Select the most accurate category and attributes for better visibility.' },
+                    { text: 'Configure Shipping Profiles', detail: 'Set accurate processing times, carrier options, and shipping costs.' },
+                    goal === 'optimize' ? { text: 'Update Underperforming Listings', detail: 'Refresh photos, improve descriptions, adjust pricing on slow sellers.', priority: true } : 
+                    { text: 'Launch With 10-20 Listings', detail: 'Don\'t wait for perfection. Get products live and iterate based on feedback.', priority: true },
+                ]
+            });
+
+            // Phase 4: Marketing
+            phases.push({
+                icon: '📣',
+                title: goal === 'optimize' ? 'Phase 3: Marketing Amplification' : 'Phase 4: Marketing & Launch',
+                duration: timeCommitment === '5-10' ? '2-3 weeks' : timeCommitment === '10-20' ? '1-2 weeks' : '1 week',
+                tasks: [
+                    { text: 'Set Up Social Media Accounts', detail: 'Instagram, Pinterest, TikTok—choose 1-2 platforms your customers use most.', priority: true },
+                    { text: 'Create Content Calendar', detail: 'Plan 3-4 posts per week showing products, behind-scenes, brand story.' },
+                    { text: 'Join Etsy & Facebook Groups', detail: 'Network with other sellers, learn from experienced shop owners, get support.' },
+                    { text: 'Reach Out to Your Network', detail: 'Email friends/family about shop launch. Ask for feedback and shares.' },
+                    { text: 'Consider Etsy Ads', detail: 'Start with $1-2/day budget. Monitor which products get sales from ads.' },
+                    { text: 'Optimize for Etsy Search', detail: 'Monitor your search analytics, adjust keywords based on performance.', priority: true },
+                    { text: 'Encourage Early Reviews', detail: 'Provide excellent service, include thank you notes, follow up professionally.' },
+                    goal === 'optimize' ? { text: 'Launch a Promotion or Sale', detail: 'Create urgency with limited-time offers. Use Etsy coupon codes.', priority: true } : null,
+                ].filter(t => t !== null)
+            });
+
+            // Phase 5: Growth
+            phases.push({
+                icon: '📈',
+                title: goal === 'optimize' ? 'Phase 4: Scale & Systemize' : 'Phase 5: Analyze & Optimize',
+                duration: 'Ongoing',
+                tasks: [
+                    { text: 'Review Shop Stats Weekly', detail: 'Track views, visits, favorites, conversion rate. Identify trends.', priority: true },
+                    { text: 'Test & Iterate Listings', detail: 'Update photos, tweak descriptions, adjust prices. See what improves performance.' },
+                    { text: 'Expand Product Line Strategically', detail: 'Add variations of bestsellers. Respond to customer requests.' },
+                    { text: 'Build Email List', detail: 'Offer discount for newsletter signup. Send product launches and tips.' },
+                    { text: 'Improve Customer Service', detail: 'Respond within 24 hours, exceed expectations, handle issues professionally.' },
+                    { text: 'Streamline Operations', detail: 'Create templates, batch tasks, optimize production workflow.' },
+                    { text: 'Reinvest Profits Wisely', detail: 'Better equipment, paid marketing, inventory expansion, education.' },
+                    { text: 'Connect With Your Community', detail: 'Engage with customers, respond to messages, build brand loyalty.' },
+                ]
+            });
+
+            // Render phases
+            const planContent = document.getElementById('planContent');
+            planContent.innerHTML = phases.map(phase => `
+                <div class="phase">
+                    <div class="phase-header">
+                        <div class="phase-icon">${phase.icon}</div>
+                        <div class="phase-title">
+                            <h3>${phase.title}</h3>
+                            <div class="duration">⏱️ ${phase.duration}</div>
+                        </div>
+                    </div>
+                    ${phase.tasks.map(task => `
+                        <div class="checklist-item ${task.priority ? 'priority' : ''}">
+                            <div class="checklist-checkbox ${task.priority ? 'priority' : ''}" onclick="toggleCheckbox(this)"></div>
+                            <div class="checklist-content">
+                                <strong>${task.text}${task.priority ? '<span class="priority-badge">Priority</span>' : ''}</strong>
+                                <p>${task.detail}</p>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `).join('');
+
+            document.getElementById('results').classList.add('show');
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etsy Pricing Calculator - Discover Your Success with Alayna Marie</title>
+<!--
+═══════════════════════════════════════════════════════════════════════
+  ETSY PRICING CALCULATOR
+  
+  Copyright © 2025 Alayna Marie Weimer. All Rights Reserved.
+  
+  CREATOR: Alayna Marie Weimer
+  BRAND: Discover Your Success with Alayna Marie
+  
+  For inquiries: alayna@ignitepositivechanges.com
+═══════════════════════════════════════════════════════════════════════
+-->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #FFD93D 0%, #F4A261 50%, #E76F51 100%);
+            min-height: 100vh;
+            padding-bottom: 40px;
+        }
+
+        /* Password Protection */
+        #passwordOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #FFD93D 0%, #F4A261 50%, #E76F51 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        #passwordOverlay.hidden {
+            display: none;
+        }
+
+        .password-box {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .password-box h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.8em;
+        }
+
+        .password-box p {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .password-box input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+
+        .password-box input:focus {
+            outline: none;
+            border-color: #F4A261;
+        }
+
+        .password-box button {
+            width: 100%;
+            background: linear-gradient(135deg, #FFD93D 0%, #F4A261 100%);
+            color: #2c3e50;
+            border: none;
+            padding: 15px;
+            font-size: 1.1em;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .error-message {
+            color: #dc2626;
+            margin-top: 15px;
+            font-size: 0.9em;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .logo-text {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .logo-subtitle {
+            font-size: 1.2em;
+            color: #F4A261;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: #F4A261;
+            text-decoration: none;
+            margin-bottom: 15px;
+            font-weight: 600;
+            font-size: 1em;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .brand-name {
+            color: #F4A261;
+            font-weight: 600;
+            font-size: 1em;
+        }
+
+        /* Why This Matters Section */
+        .why-matters {
+            background: white;
+            border-radius: 15px;
+            padding: 35px;
+            margin-bottom: 30px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            border-top: 5px solid #FFD93D;
+        }
+
+        .why-matters h2 {
+            color: #2c3e50;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .why-matters p {
+            color: #2c3e50;
+            font-size: 1.05em;
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .why-matters strong {
+            color: #F4A261;
+        }
+
+        /* Benefits Banner */
+        .benefits-banner {
+            background: linear-gradient(180deg, #ffffff 0%, #FFE8CC 50%);
+            border: 3px solid #FFD93D;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 6px 20px rgba(244, 162, 97, 0.3);
+        }
+
+        .benefits-banner h2 {
+            color: #2c3e50;
+            font-size: 1.6em;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: start;
+            margin: 15px 0;
+            padding: 12px;
+            background: white;
+            border-radius: 10px;
+            border-left: 4px solid #F4A261;
+        }
+
+        .benefit-icon {
+            font-size: 1.5em;
+            margin-right: 15px;
+            min-width: 30px;
+        }
+
+        .benefit-text strong {
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .benefit-text p {
+            color: #666;
+            margin: 0;
+        }
+
+        /* Calculator Section */
+        .content-box {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border-left: 5px solid #F4A261;
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 1.05em;
+        }
+
+        .help-text {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 4px;
+            font-style: italic;
+        }
+
+        input[type="number"],
+        input[type="text"] {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #F4A261;
+            box-shadow: 0 0 0 3px rgba(244, 162, 97, 0.1);
+        }
+
+        .input-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .calculate-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #FFD93D 0%, #F4A261 100%);
+            color: #2c3e50;
+            border: none;
+            padding: 18px;
+            font-size: 1.3em;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 700;
+            margin-top: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(244, 162, 97, 0.4);
+        }
+
+        /* Results Section */
+        .results {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .results.show {
+            display: block;
+        }
+
+        .result-card {
+            background: linear-gradient(135deg, #FFD93D 0%, #F4A261 100%);
+            padding: 35px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(244, 162, 97, 0.4);
+        }
+
+        .result-card h3 {
+            color: #2c3e50;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .big-number {
+            font-size: 4em;
+            color: #2c3e50;
+            font-weight: bold;
+            margin: 10px 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .result-card p {
+            color: #2c3e50;
+            font-size: 1.1em;
+            margin-top: 10px;
+        }
+
+        .breakdown {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .breakdown h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            font-weight: 700;
+        }
+
+        .breakdown-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            border-bottom: 2px solid #f0f0f0;
+            align-items: center;
+        }
+
+        .breakdown-item:last-child {
+            border-bottom: none;
+            background: linear-gradient(135deg, #FFE8CC 0%, #FFD93D 100%);
+            border-radius: 8px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .breakdown-label {
+            color: #666;
+            font-size: 1.05em;
+        }
+
+        .breakdown-value {
+            font-weight: 700;
+            color: #2c3e50;
+            font-size: 1.1em;
+        }
+
+        .breakdown-item:last-child .breakdown-label,
+        .breakdown-item:last-child .breakdown-value {
+            color: #2c3e50;
+            font-size: 1.2em;
+        }
+
+        /* Tips Box */
+        .tip-box {
+            background: #e3f2fd;
+            border-left: 5px solid #2196f3;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 25px;
+        }
+
+        .tip-box strong {
+            color: #1565c0;
+            display: block;
+            margin-bottom: 12px;
+            font-size: 1.2em;
+        }
+
+        .tip-box p {
+            color: #0d47a1;
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 25px;
+        }
+
+        .warning-box strong {
+            color: #856404;
+            display: block;
+            margin-bottom: 12px;
+            font-size: 1.2em;
+        }
+
+        .warning-box p {
+            color: #856404;
+            margin: 0;
+        }
+
+        /* Footer */
+        .footer {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+            border-top: 5px solid #FFD93D;
+        }
+
+        .footer p {
+            color: #666;
+            margin: 8px 0;
+            font-size: 1em;
+        }
+
+        .footer a {
+            color: #F4A261;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer .brand-name {
+            color: #F4A261;
+            font-weight: 700;
+            font-size: 1.1em;
+            margin: 15px 0;
+        }
+
+        .footer .copyright {
+            color: #999;
+            font-size: 0.85em;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .input-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .big-number {
+                font-size: 2.5em;
+            }
+
+            .header h1 {
+                font-size: 1.6em;
+            }
+
+            .logo-text {
+                font-size: 1.8em;
+            }
+
+            .content-box,
+            .why-matters,
+            .benefits-banner {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Password Protection -->
+    <div id="passwordOverlay">
+        <div class="password-box">
+            <h2>🔐 Access Required</h2>
+            <p>Please enter your password</p>
+            <input type="password" id="passwordInput" placeholder="Enter password" autocomplete="off">
+            <button onclick="checkPassword()">Access Calculator</button>
+            <div class="error-message" id="errorMessage">Incorrect password</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <a href="index.html" class="back-link">← Back to Toolkit</a>
+            <div class="logo-text">Discover Your Success</div>
+            <div class="logo-subtitle">with Alayna Marie</div>
+            <h1>💰 Etsy Pricing Calculator</h1>
+        </div>
+
+        <!-- Why This Matters -->
+        <div class="why-matters">
+            <h2>📚 Why Pricing Matters More Than You Think</h2>
+            <p>Pricing is the #1 reason new Etsy sellers fail. It sounds simple—just add up your costs and tack on some profit, right? Wrong.</p>
+            
+            <p><strong>Here's what most sellers miss:</strong> When you undercharge, you're not just leaving money on the table. You're creating an unsustainable business that will burn you out. You'll work harder and harder for less and less, until you give up entirely.</p>
+            
+            <p>Etsy takes 6.5% of your sale (including shipping!), payment processing takes another 3% + $0.25, and you paid $0.20 just to list the item. Before you even account for your materials, time, or shipping costs, nearly 10% of your revenue is already gone.</p>
+            
+            <p><strong>This calculator does the math for you.</strong> It factors in everything—materials, labor, Etsy's fees, shipping, overhead—and tells you exactly what price will cover your costs AND deliver the profit margin you deserve.</p>
+            
+            <p>Stop guessing. Start pricing with confidence.</p>
+        </div>
+
+        <!-- Benefits Banner -->
+        <div class="benefits-banner">
+            <h2>✨ What This Calculator Does For You</h2>
+            
+            <div class="benefit-item">
+                <div class="benefit-icon">🎯</div>
+                <div class="benefit-text">
+                    <strong>Accounts for EVERY Cost</strong>
+                    <p>Materials, labor, packaging, shipping, overhead, AND all Etsy fees—nothing gets overlooked.</p>
+                </div>
+            </div>
+
+            <div class="benefit-item">
+                <div class="benefit-icon">💡</div>
+                <div class="benefit-text">
+                    <strong>Calculates Your TRUE Hourly Rate</strong>
+                    <p>See what you're actually earning per hour. If it's less than minimum wage, you'll know you need to adjust.</p>
+                </div>
+            </div>
+
+            <div class="benefit-item">
+                <div class="benefit-icon">📊</div>
+                <div class="benefit-text">
+                    <strong>Shows the Complete Breakdown</strong>
+                    <p>Understand exactly where every dollar goes—from Etsy's cut to your profit.</p>
+                </div>
+            </div>
+
+            <div class="benefit-item">
+                <div class="benefit-icon">✅</div>
+                <div class="benefit-text">
+                    <strong>Sets You Up for Success</strong>
+                    <p>Price correctly from day one. Build a sustainable, profitable business you can grow.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calculator -->
+        <div class="content-box">
+            <div class="section">
+                <h2>📝 Product Information</h2>
+                <div class="form-group">
+                    <label for="productName">Product Name</label>
+                    <input type="text" id="productName" placeholder="e.g., Hand-Knitted Scarf">
+                    <div class="help-text">This helps you keep track when calculating multiple products</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>💵 Material Costs</h2>
+                <div class="input-grid">
+                    <div class="form-group">
+                        <label for="materials">Materials Cost ($)</label>
+                        <input type="number" id="materials" step="0.01" min="0" placeholder="0.00" value="0">
+                        <div class="help-text">Fabric, yarn, beads, paper, etc.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="packaging">Packaging Cost ($)</label>
+                        <input type="number" id="packaging" step="0.01" min="0" placeholder="0.00" value="0">
+                        <div class="help-text">Boxes, tissue, stickers, thank you cards</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>⏱️ Labor & Time</h2>
+                <div class="input-grid">
+                    <div class="form-group">
+                        <label for="laborHours">Hours to Make</label>
+                        <input type="number" id="laborHours" step="0.25" min="0" placeholder="0" value="0">
+                        <div class="help-text">Be honest! Include design, creation, and listing time</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="hourlyRate">Your Hourly Rate ($/hr)</label>
+                        <input type="number" id="hourlyRate" step="1" min="0" placeholder="25" value="25">
+                        <div class="help-text">What's your time worth? $15-50/hr is typical</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>📦 Shipping & Overhead</h2>
+                <div class="input-grid">
+                    <div class="form-group">
+                        <label for="shipping">Shipping Cost ($)</label>
+                        <input type="number" id="shipping" step="0.01" min="0" placeholder="0.00" value="0">
+                        <div class="help-text">What you'll pay to ship this item</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="overhead">Overhead per Item ($)</label>
+                        <input type="number" id="overhead" step="0.01" min="0" placeholder="0.00" value="0">
+                        <div class="help-text">Marketing, tools, subscriptions divided by items sold</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🎯 Profit Goal</h2>
+                <div class="form-group">
+                    <label for="profitMargin">Desired Profit Margin (%)</label>
+                    <input type="number" id="profitMargin" step="1" min="0" max="100" placeholder="30" value="30">
+                    <div class="help-text">30-50% is standard for handmade. Higher for luxury items.</div>
+                </div>
+            </div>
+
+            <button class="calculate-btn" onclick="calculatePrice()">Calculate My Perfect Price 💰</button>
+
+            <!-- Results -->
+            <div class="results" id="results">
+                <div class="result-card">
+                    <h3>Your Recommended Price</h3>
+                    <div class="big-number" id="recommendedPrice">$0.00</div>
+                    <p>This price covers all costs, Etsy fees, and delivers your desired profit.</p>
+                </div>
+
+                <div class="breakdown">
+                    <h3>💡 Where Every Dollar Goes</h3>
+                    <div class="breakdown-item">
+                        <span class="breakdown-label">Materials & Packaging</span>
+                        <span class="breakdown-value" id="totalMaterials">$0.00</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span class="breakdown-label">Your Labor</span>
+                        <span class="breakdown-value" id="laborCost">$0.00</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span class="breakdown-label">Shipping & Overhead</span>
+                        <span class="breakdown-value" id="shippingOverhead">$0.00</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span class="breakdown-label">Etsy Transaction Fee (6.5%)</span>
+                        <span class="breakdown-value" id="etsyFees">$0.00</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span class="breakdown-label">Payment Processing (3% + $0.25)</span>
+                        <span class="breakdown-value" id="paymentFees">$0.00</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span class="breakdown-label">Listing Fee</span>
+                        <span class="breakdown-value">$0.20</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span class="breakdown-label">💰 Your Profit</span>
+                        <span class="breakdown-value" id="yourProfit">$0.00</span>
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <strong>💡 Pricing Pro Tips</strong>
+                    <p><strong>Test your price:</strong> Start at this calculated price and adjust based on sales. If you sell out immediately, you're underpriced.</p>
+                    <p><strong>Don't compete on price alone:</strong> Focus on quality, unique designs, and great service instead of being the cheapest.</p>
+                    <p><strong>Remember the listing fee:</strong> That $0.20 renews every 4 months or when the item sells, whichever comes first.</p>
+                    <p><strong>Factor in your expertise:</strong> As you gain skills, your hourly rate should increase to reflect your improved speed and quality.</p>
+                </div>
+
+                <div id="warningBox" class="warning-box" style="display: none;">
+                    <strong>⚠️ Pricing Alert</strong>
+                    <p id="warningText"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Need professional support as you grow?</p>
+            <p><strong>Nonprofit Resources:</strong> <a href="https://igniteempowermentfoundation.org" target="_blank">igniteempowermentfoundation.org</a></p>
+            <p><strong>Fractional Services:</strong> <a href="https://www.ignitepositivechanges.com" target="_blank">www.ignitepositivechanges.com</a></p>
+            <p class="brand-name">Discover Your Success with Alayna Marie</p>
+            <p class="copyright">© 2025 Alayna Marie Weimer. All Rights Reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        const CORRECT_PASSWORD = "LaunchMyShop2025";
+
+        window.addEventListener('DOMContentLoaded', function() {
+            if (sessionStorage.getItem('etsyToolkitAuth') === 'true') {
+                document.getElementById('passwordOverlay').classList.add('hidden');
+            }
+        });
+
+        function checkPassword() {
+            const input = document.getElementById('passwordInput').value;
+            if (input === CORRECT_PASSWORD) {
+                sessionStorage.setItem('etsyToolkitAuth', 'true');
+                document.getElementById('passwordOverlay').classList.add('hidden');
+            } else {
+                document.getElementById('errorMessage').classList.add('show');
+                document.getElementById('passwordInput').value = '';
+            }
+        }
+
+        document.getElementById('passwordInput')?.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') checkPassword();
+        });
+
+        function calculatePrice() {
+            // Get inputs
+            const materials = parseFloat(document.getElementById('materials').value) || 0;
+            const packaging = parseFloat(document.getElementById('packaging').value) || 0;
+            const laborHours = parseFloat(document.getElementById('laborHours').value) || 0;
+            const hourlyRate = parseFloat(document.getElementById('hourlyRate').value) || 0;
+            const shipping = parseFloat(document.getElementById('shipping').value) || 0;
+            const overhead = parseFloat(document.getElementById('overhead').value) || 0;
+            const profitMarginPercent = parseFloat(document.getElementById('profitMargin').value) || 0;
+
+            // Calculate base costs
+            const totalMaterials = materials + packaging;
+            const laborCost = laborHours * hourlyRate;
+            const shippingOverhead = shipping + overhead;
+            const listingFee = 0.20;
+
+            // Total base cost
+            const baseCost = totalMaterials + laborCost + shippingOverhead + listingFee;
+
+            // Calculate price with fees and profit
+            const etsyFeeRate = 0.065; // 6.5%
+            const paymentFeeRate = 0.03; // 3%
+            const profitMarginRate = profitMarginPercent / 100;
+
+            // Formula: Price * (1 - fees - profit) = BaseCost + payment flat fee
+            const denominator = 1 - etsyFeeRate - paymentFeeRate - profitMarginRate;
+            const recommendedPrice = (baseCost + 0.25) / denominator;
+
+            // Calculate actual fees based on recommended price
+            const etsyFees = recommendedPrice * etsyFeeRate;
+            const paymentFees = (recommendedPrice * paymentFeeRate) + 0.25;
+            const yourProfit = recommendedPrice - baseCost - etsyFees - paymentFees;
+
+            // Display results
+            document.getElementById('recommendedPrice').textContent = '$' + recommendedPrice.toFixed(2);
+            document.getElementById('totalMaterials').textContent = '$' + totalMaterials.toFixed(2);
+            document.getElementById('laborCost').textContent = '$' + laborCost.toFixed(2);
+            document.getElementById('shippingOverhead').textContent = '$' + shippingOverhead.toFixed(2);
+            document.getElementById('etsyFees').textContent = '$' + etsyFees.toFixed(2);
+            document.getElementById('paymentFees').textContent = '$' + paymentFees.toFixed(2);
+            document.getElementById('yourProfit').textContent = '$' + yourProfit.toFixed(2);
+
+            // Show results
+            document.getElementById('results').classList.add('show');
+
+            // Check for warnings
+            const warningBox = document.getElementById('warningBox');
+            const warningText = document.getElementById('warningText');
+            
+            if (profitMarginPercent < 20) {
+                warningBox.style.display = 'block';
+                warningText.textContent = 'Your profit margin is quite low. Consider increasing to at least 30% for sustainable business growth. You deserve to be paid fairly for your work!';
+            } else if (recommendedPrice < 10) {
+                warningBox.style.display = 'block';
+                warningText.textContent = 'Low-priced items require very high sales volume to be profitable. Consider bundling items, adding value, or increasing your price point for better sustainability.';
+            } else if (laborHours > 0 && (yourProfit / laborHours) < 15) {
+                warningBox.style.display = 'block';
+                warningText.textContent = 'Your effective hourly rate is quite low. You\'re making less than $15/hour on this item. Consider raising your price or streamlining your process.';
+            } else {
+                warningBox.style.display = 'none';
+            }
+
+            // Scroll to results
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+    </script>
+</body>
+</html>
