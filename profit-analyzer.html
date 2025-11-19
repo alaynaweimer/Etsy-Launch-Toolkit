@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etsy Profit Analyzer - Discover Your Success with Alayna Marie</title>
+<!--
+═══════════════════════════════════════════════════════════════════════
+  ETSY PROFIT ANALYZER
+  Copyright © 2025 Alayna Marie Weimer. All Rights Reserved.
+  BRAND: Discover Your Success with Alayna Marie
+  For inquiries: alayna@ignitepositivechanges.com
+═══════════════════════════════════════════════════════════════════════
+-->
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #FFD93D 0%, #F4A261 50%, #E76F51 100%);
+            min-height: 100vh;
+            padding-bottom: 40px;
+        }
+        #passwordOverlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, #FFD93D 0%, #F4A261 50%, #E76F51 100%);
+            display: flex; align-items: center; justify-content: center; z-index: 9999;
+        }
+        #passwordOverlay.hidden { display: none; }
+        .password-box {
+            background: white; padding: 40px; border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); max-width: 400px; width: 90%; text-align: center;
+        }
+        .password-box h2 { color: #2c3e50; margin-bottom: 10px; font-size: 1.8em; }
+        .password-box p { color: #666; margin-bottom: 30px; }
+        .password-box input {
+            width: 100%; padding: 15px; border: 2px solid #e0e0e0;
+            border-radius: 10px; font-size: 1.1em; margin-bottom: 20px;
+        }
+        .password-box input:focus { outline: none; border-color: #F4A261; }
+        .password-box button {
+            width: 100%; background: linear-gradient(135deg, #FFD93D 0%, #F4A261 100%);
+            color: #2c3e50; border: none; padding: 15px; font-size: 1.1em;
+            border-radius: 10px; cursor: pointer; font-weight: 700;
+        }
+        .error-message { color: #dc2626; margin-top: 15px; font-size: 0.9em; display: none; }
+        .error-message.show { display: block; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .header {
+            background: white; border-radius: 20px; padding: 30px 20px;
+            text-align: center; margin-bottom: 30px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        .back-link {
+            display: inline-block; color: #F4A261; text-decoration: none;
+            margin-bottom: 15px; font-weight: 600;
+        }
+        .back-link:hover { text-decoration: underline; }
+        .logo-text {
+            font-size: 2.5em; font-weight: 700; color: #2c3e50; margin-bottom: 10px;
+        }
+        .logo-subtitle { font-size: 1.2em; color: #F4A261; font-weight: 600; margin-bottom: 20px; }
+        .header h1 { color: #2c3e50; font-size: 2.2em; margin-bottom: 10px; font-weight: 700; }
+        .why-matters {
+            background: white; border-radius: 15px; padding: 35px; margin-bottom: 30px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); border-top: 5px solid #FFD93D;
+        }
+        .why-matters h2 { color: #2c3e50; font-size: 1.8em; margin-bottom: 20px; font-weight: 700; }
+        .why-matters p { color: #2c3e50; font-size: 1.05em; margin-bottom: 15px; line-height: 1.7; }
+        .why-matters strong { color: #F4A261; }
+        .benefits-banner {
+            background: linear-gradient(180deg, #ffffff 0%, #FFE8CC 50%);
+            border: 3px solid #FFD93D; border-radius: 15px; padding: 30px; margin-bottom: 30px;
+            box-shadow: 0 6px 20px rgba(244, 162, 97, 0.3);
+        }
+        .benefits-banner h2 {
+            color: #2c3e50; font-size: 1.6em; margin-bottom: 20px; text-align: center; font-weight: 700;
+        }
+        .benefit-item {
+            display: flex; align-items: start; margin: 15px 0; padding: 12px;
+            background: white; border-radius: 10px; border-left: 4px solid #F4A261;
+        }
+        .benefit-icon { font-size: 1.5em; margin-right: 15px; min-width: 30px; }
+        .benefit-text strong { color: #2c3e50; display: block; margin-bottom: 5px; }
+        .benefit-text p { color: #666; margin: 0; }
+        .content-box {
+            background: white; border-radius: 15px; padding: 40px;
+            margin-bottom: 30px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+        .section {
+            margin-bottom: 30px; padding: 25px; background: #f8f9fa;
+            border-radius: 12px; border-left: 5px solid #F4A261;
+        }
+        .section h2 { color: #2c3e50; font-size: 1.5em; margin-bottom: 20px; font-weight: 700; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; color: #2c3e50; font-weight: 600; font-size: 1.05em; }
+        .help-text { font-size: 0.85em; color: #666; margin-top: 4px; font-style: italic; }
+        input[type="number"] {
+            width: 100%; padding: 14px; border: 2px solid #e0e0e0;
+            border-radius: 8px; font-size: 1em; transition: border-color 0.3s;
+        }
+        input:focus { outline: none; border-color: #F4A261; box-shadow: 0 0 0 3px rgba(244, 162, 97, 0.1); }
+        .checkbox-group {
+            display: flex; align-items: center; gap: 10px; padding: 15px;
+            background: white; border-radius: 8px; margin-bottom: 15px;
+        }
+        input[type="checkbox"] { width: 20px; height: 20px; cursor: pointer; }
+        .calculate-btn {
+            width: 100%; background: linear-gradient(135deg, #FFD93D 0%, #F4A261 100%);
+            color: #2c3e50; border: none; padding: 18px; font-size: 1.3em;
+            border-radius: 12px; cursor: pointer; font-weight: 700; margin-top: 20px;
+            transition: transform 0.2s, box-shadow 0.2s; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .calculate-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(244, 162, 97, 0.4); }
+        .results { display: none; margin-top: 30px; }
+        .results.show { display: block; }
+        .comparison-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px; margin-bottom: 30px;
+        }
+        .strategy-card {
+            background: white; border-radius: 15px; padding: 30px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); position: relative;
+            border-top: 5px solid #F4A261;
+        }
+        .strategy-card.winner {
+            border-top-color: #10b981;
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+        }
+        .winner-badge {
+            position: absolute; top: 15px; right: 15px;
+            background: #10b981; color: white; padding: 5px 12px;
+            border-radius: 20px; font-size: 0.8em; font-weight: 700;
+            text-transform: uppercase;
+        }
+        .strategy-card h3 {
+            color: #2c3e50; font-size: 1.5em; margin-bottom: 20px;
+            font-weight: 700; padding-right: 80px;
+        }
+        .price-display {
+            font-size: 2.5em; color: #F4A261; font-weight: bold;
+            margin-bottom: 20px; text-align: center;
+        }
+        .metric-row {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px; margin-bottom: 10px; background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .metric-row .label { color: #666; font-weight: 600; }
+        .metric-row .value { font-weight: bold; color: #2c3e50; font-size: 1.1em; }
+        .metric-row.highlight {
+            background: linear-gradient(135deg, #FFD93D 0%, #F4A261 100%);
+        }
+        .metric-row.highlight .label,
+        .metric-row.highlight .value { color: #2c3e50; }
+        .profit-margin {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white; padding: 20px; border-radius: 10px;
+            text-align: center; margin-top: 15px;
+        }
+        .profit-margin.negative {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        }
+        .profit-margin h4 { font-size: 0.9em; margin-bottom: 8px; }
+        .profit-margin .value { font-size: 2em; font-weight: bold; }
+        .insights {
+            background: white; padding: 30px; border-radius: 15px;
+            margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .insights h3 { color: #2c3e50; margin-bottom: 20px; font-size: 1.5em; font-weight: 700; }
+        .insight-item {
+            display: flex; align-items: start; padding: 18px; margin-bottom: 15px;
+            background: #f8f9fa; border-radius: 10px; border-left: 5px solid #F4A261;
+        }
+        .insight-item.positive { background: #d1fae5; border-left-color: #10b981; }
+        .insight-item.warning { background: #fef3c7; border-left-color: #f59e0b; }
+        .insight-item.negative { background: #fee2e2; border-left-color: #dc2626; }
+        .insight-icon {
+            font-size: 1.8em; margin-right: 15px; min-width: 35px;
+        }
+        .insight-content { flex: 1; }
+        .insight-content strong {
+            color: #2c3e50; display: block; margin-bottom: 8px; font-size: 1.1em;
+        }
+        .insight-content p { color: #666; margin: 0; line-height: 1.6; }
+        .summary-table {
+            width: 100%; border-collapse: collapse; margin-top: 25px;
+        }
+        .summary-table th {
+            background: linear-gradient(135deg, #FFD93D 0%, #F4A261 100%);
+            color: #2c3e50; padding: 15px; text-align: left; font-weight: 700;
+        }
+        .summary-table td {
+            padding: 15px; border-bottom: 1px solid #e0e0e0;
+        }
+        .summary-table tr:hover { background: #f8f9fa; }
+        .tip-box {
+            background: #e3f2fd; border-left: 5px solid #2196f3; padding: 25px;
+            border-radius: 10px; margin-top: 25px;
+        }
+        .tip-box strong { color: #1976d2; display: block; margin-bottom: 15px; font-size: 1.15em; }
+        .tip-box p { color: #2c3e50; margin: 12px 0; line-height: 1.7; }
+        .footer {
+            background: white; border-radius: 15px; padding: 30px; margin-top: 30px;
+            text-align: center; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+        .footer p { color: #666; margin: 8px 0; }
+        .footer a { color: #F4A261; text-decoration: none; font-weight: 600; }
+        .footer a:hover { text-decoration: underline; }
+        .footer .brand-name { color: #2c3e50; font-weight: 700; font-size: 1.2em; margin-top: 15px; }
+        .footer .copyright { color: #999; font-size: 0.9em; margin-top: 10px; }
+        @media (max-width: 768px) {
+            .logo-text { font-size: 1.8em; }
+            .header h1 { font-size: 1.6em; }
+            .comparison-grid { grid-template-columns: 1fr; }
+            .price-display { font-size: 2em; }
+        }
+    </style>
+</head>
+<body>
+    <div id="passwordOverlay">
+        <div class="password-box">
+            <h2>🔐 Access Required</h2>
+            <p>Enter the password to access the Etsy Launch Toolkit</p>
+            <input type="password" id="passwordInput" placeholder="Enter password">
+            <button onclick="checkPassword()">Unlock Toolkit</button>
+            <div id="errorMessage" class="error-message">❌ Incorrect password. Please try again.</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <a href="index.html" class="back-link">← Back to Toolkit Hub</a>
+            <div class="logo-text">Discover Your Success</div>
+            <div class="logo-subtitle">with Alayna Marie</div>
+            <h1>💰 Etsy Profit Analyzer</h1>
+        </div>
+
+        <div class="why-matters">
+            <h2>🎯 Why This Matters</h2>
+            <p>Pricing isn't just about covering costs—it's about finding the sweet spot where you maximize profit while remaining competitive. A $5 price difference can mean the gap between a thriving business and barely breaking even.</p>
+            <p>Many Etsy sellers price by gut feeling or copy competitors without understanding the <strong>profit implications</strong> of different strategies. Should you price higher and sell fewer units? Or price lower to increase volume? What about offering free shipping?</p>
+            <p><strong>The Problem:</strong> Without comparing scenarios side-by-side, you're guessing. You might be leaving thousands of dollars on the table—or pricing yourself out of the market entirely.</p>
+            <p>This analyzer lets you test multiple pricing strategies simultaneously, showing you the real profit per sale and helping you make data-driven pricing decisions.</p>
+        </div>
+
+        <div class="benefits-banner">
+            <h2>✨ What You'll Discover</h2>
+            <div class="benefit-item">
+                <div class="benefit-icon">📊</div>
+                <div class="benefit-text">
+                    <strong>Side-by-Side Strategy Comparison</strong>
+                    <p>Compare 3 different pricing approaches with full cost breakdowns</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">💡</div>
+                <div class="benefit-text">
+                    <strong>True Profit Per Sale</strong>
+                    <p>See your actual profit after ALL fees and costs—no surprises</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">🎯</div>
+                <div class="benefit-text">
+                    <strong>Optimal Strategy Recommendation</strong>
+                    <p>Get a clear winner based on profit margin and market positioning</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">📈</div>
+                <div class="benefit-text">
+                    <strong>Smart Insights</strong>
+                    <p>Understand trade-offs and get strategic pricing advice</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">🔄</div>
+                <div class="benefit-text">
+                    <strong>Test "What-If" Scenarios</strong>
+                    <p>Experiment with free shipping, price changes, and advertising</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-box">
+            <div class="section">
+                <h2>🧮 Enter Your Product Costs</h2>
+                <p style="color: #666; margin-bottom: 25px;">These costs stay the same across all strategies.</p>
+                
+                <div class="form-group">
+                    <label>Cost of Goods Sold (COGS)</label>
+                    <input type="number" id="cogs" step="0.01" placeholder="8.00">
+                    <div class="help-text">Materials, supplies, packaging per item</div>
+                </div>
+
+                <div class="form-group">
+                    <label>Actual Shipping Cost</label>
+                    <input type="number" id="shippingCost" step="0.01" placeholder="4.50">
+                    <div class="help-text">What you pay USPS/UPS/FedEx</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>💵 Strategy 1: Current/Base Pricing</h2>
+                
+                <div class="form-group">
+                    <label>Item Price</label>
+                    <input type="number" id="price1" step="0.01" placeholder="25.00">
+                </div>
+
+                <div class="form-group">
+                    <label>Shipping Charged to Customer</label>
+                    <input type="number" id="shipping1" step="0.01" placeholder="5.00">
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="ads1">
+                    <label for="ads1" style="margin: 0;">Using Etsy/Offsite Ads? (15% fee)</label>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>💵 Strategy 2: Alternative Pricing</h2>
+                
+                <div class="form-group">
+                    <label>Item Price</label>
+                    <input type="number" id="price2" step="0.01" placeholder="28.00">
+                    <div class="help-text">Try a higher price point</div>
+                </div>
+
+                <div class="form-group">
+                    <label>Shipping Charged to Customer</label>
+                    <input type="number" id="shipping2" step="0.01" placeholder="5.00">
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="ads2">
+                    <label for="ads2" style="margin: 0;">Using Etsy/Offsite Ads? (15% fee)</label>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>💵 Strategy 3: Free Shipping Option</h2>
+                
+                <div class="form-group">
+                    <label>Item Price (Including Shipping Cost)</label>
+                    <input type="number" id="price3" step="0.01" placeholder="30.00">
+                    <div class="help-text">Price that absorbs your shipping cost</div>
+                </div>
+
+                <div class="form-group">
+                    <label>Shipping Charged to Customer</label>
+                    <input type="number" id="shipping3" value="0.00" step="0.01" readonly>
+                    <div class="help-text">Free shipping (locked at $0)</div>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="ads3">
+                    <label for="ads3" style="margin: 0;">Using Etsy/Offsite Ads? (15% fee)</label>
+                </div>
+            </div>
+
+            <button class="calculate-btn" onclick="analyzePricing()">Compare Pricing Strategies</button>
+
+            <div id="results" class="results">
+                <h2 style="color: #2c3e50; font-size: 2em; margin-bottom: 30px; text-align: center;">📊 Strategy Comparison</h2>
+                
+                <div class="comparison-grid" id="comparisonCards">
+                    <!-- Strategy cards will be inserted here -->
+                </div>
+
+                <div class="insights">
+                    <h3>💡 Strategic Insights</h3>
+                    <div id="insightsList">
+                        <!-- Insights will be inserted here -->
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <strong>💡 Making Smart Pricing Decisions</strong>
+                    <p><strong>Profit Margin Matters:</strong> A 40%+ profit margin gives you room for growth, unexpected costs, and advertising spend. Below 30% is risky.</p>
+                    <p><strong>Free Shipping Psychology:</strong> Studies show free shipping can increase conversion rates by 20-30%, even when the total cost is identical to paid shipping options.</p>
+                    <p><strong>Price Testing:</strong> Don't set and forget. Test different prices every 2-3 months. Track views and conversion rates to find your optimal price point.</p>
+                    <p><strong>Volume vs. Margin:</strong> Higher prices mean fewer sales but more profit per sale. Lower prices mean more sales but thinner margins. Your ideal strategy depends on production capacity and market demand.</p>
+                    <p><strong>Competitive Analysis:</strong> Check similar products every month. If competitors drop prices, you may need to adjust—or differentiate through better photos/branding to justify premium pricing.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Need professional support as you grow?</p>
+            <p><strong>Nonprofit Resources:</strong> <a href="https://igniteempowermentfoundation.org" target="_blank">igniteempowermentfoundation.org</a></p>
+            <p><strong>Fractional Services:</strong> <a href="https://www.ignitepositivechanges.com" target="_blank">www.ignitepositivechanges.com</a></p>
+            <p class="brand-name">Discover Your Success with Alayna Marie</p>
+            <p class="copyright">© 2025 Alayna Marie Weimer. All Rights Reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        const CORRECT_PASSWORD = "LaunchMyShop2025";
+        window.addEventListener('DOMContentLoaded', function() {
+            if (sessionStorage.getItem('etsyToolkitAuth') === 'true') {
+                document.getElementById('passwordOverlay').classList.add('hidden');
+            }
+        });
+        function checkPassword() {
+            const input = document.getElementById('passwordInput').value;
+            if (input === CORRECT_PASSWORD) {
+                sessionStorage.setItem('etsyToolkitAuth', 'true');
+                document.getElementById('passwordOverlay').classList.add('hidden');
+            } else {
+                document.getElementById('errorMessage').classList.add('show');
+                document.getElementById('passwordInput').value = '';
+            }
+        }
+        document.getElementById('passwordInput')?.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') checkPassword();
+        });
+
+        function calculateStrategy(price, shipping, useAds, cogs, shippingCost) {
+            const totalSale = price + shipping;
+            const listingFee = 0.20;
+            const transactionFee = totalSale * 0.065;
+            const paymentFee = (totalSale * 0.03) + 0.25;
+            const adsFee = useAds ? totalSale * 0.15 : 0;
+            
+            const totalEtsyFees = listingFee + transactionFee + paymentFee + adsFee;
+            const totalCosts = totalEtsyFees + cogs + shippingCost;
+            const profit = totalSale - totalCosts;
+            const profitMargin = totalSale > 0 ? (profit / totalSale * 100) : 0;
+
+            return {
+                totalSale,
+                totalEtsyFees,
+                totalCosts,
+                profit,
+                profitMargin,
+                listingFee,
+                transactionFee,
+                paymentFee,
+                adsFee
+            };
+        }
+
+        function analyzePricing() {
+            const cogs = parseFloat(document.getElementById('cogs').value) || 0;
+            const shippingCost = parseFloat(document.getElementById('shippingCost').value) || 0;
+
+            const price1 = parseFloat(document.getElementById('price1').value) || 0;
+            const shipping1 = parseFloat(document.getElementById('shipping1').value) || 0;
+            const ads1 = document.getElementById('ads1').checked;
+
+            const price2 = parseFloat(document.getElementById('price2').value) || 0;
+            const shipping2 = parseFloat(document.getElementById('shipping2').value) || 0;
+            const ads2 = document.getElementById('ads2').checked;
+
+            const price3 = parseFloat(document.getElementById('price3').value) || 0;
+            const shipping3 = 0; // Always 0 for free shipping
+            const ads3 = document.getElementById('ads3').checked;
+
+            if (!cogs || !price1 || !price2 || !price3) {
+                alert('Please fill in all required pricing fields.');
+                return;
+            }
+
+            const strategy1 = calculateStrategy(price1, shipping1, ads1, cogs, shippingCost);
+            const strategy2 = calculateStrategy(price2, shipping2, ads2, cogs, shippingCost);
+            const strategy3 = calculateStrategy(price3, shipping3, ads3, cogs, shippingCost);
+
+            const strategies = [
+                { name: 'Strategy 1: Current Pricing', ...strategy1, price: price1, shipping: shipping1 },
+                { name: 'Strategy 2: Alternative', ...strategy2, price: price2, shipping: shipping2 },
+                { name: 'Strategy 3: Free Shipping', ...strategy3, price: price3, shipping: shipping3 }
+            ];
+
+            // Find winner (highest profit)
+            let maxProfit = Math.max(strategy1.profit, strategy2.profit, strategy3.profit);
+            
+            // Render comparison cards
+            const cardsHtml = strategies.map((s, i) => {
+                const isWinner = s.profit === maxProfit && maxProfit > 0;
+                return `
+                    <div class="strategy-card ${isWinner ? 'winner' : ''}">
+                        ${isWinner ? '<div class="winner-badge">🏆 Best Profit</div>' : ''}
+                        <h3>${s.name}</h3>
+                        <div class="price-display">$${s.totalSale.toFixed(2)}</div>
+                        
+                        <div class="metric-row">
+                            <span class="label">Item Price</span>
+                            <span class="value">$${s.price.toFixed(2)}</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="label">Shipping</span>
+                            <span class="value">${s.shipping === 0 ? 'FREE' : '$' + s.shipping.toFixed(2)}</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="label">Etsy Fees</span>
+                            <span class="value">$${s.totalEtsyFees.toFixed(2)}</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="label">COGS</span>
+                            <span class="value">$${cogs.toFixed(2)}</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="label">Shipping Cost</span>
+                            <span class="value">$${shippingCost.toFixed(2)}</span>
+                        </div>
+                        <div class="metric-row highlight">
+                            <span class="label">Total Costs</span>
+                            <span class="value">$${s.totalCosts.toFixed(2)}</span>
+                        </div>
+                        
+                        <div class="profit-margin ${s.profit < 0 ? 'negative' : ''}">
+                            <h4>Profit Per Sale</h4>
+                            <div class="value">$${s.profit.toFixed(2)}</div>
+                            <div style="margin-top: 8px; font-size: 1.1em;">${s.profitMargin.toFixed(1)}% margin</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('comparisonCards').innerHTML = cardsHtml;
+
+            // Generate insights
+            const insights = [];
+
+            // Winner insight
+            const winnerIndex = strategies.findIndex(s => s.profit === maxProfit);
+            if (maxProfit > 0) {
+                insights.push({
+                    type: 'positive',
+                    icon: '🏆',
+                    title: `Strategy ${winnerIndex + 1} Wins`,
+                    detail: `This strategy delivers $${maxProfit.toFixed(2)} profit per sale with a ${strategies[winnerIndex].profitMargin.toFixed(1)}% margin. This is your most profitable option.`
+                });
+            }
+
+            // Free shipping analysis
+            const freeShippingProfit = strategy3.profit;
+            const paidShippingBest = Math.max(strategy1.profit, strategy2.profit);
+            if (freeShippingProfit > paidShippingBest) {
+                insights.push({
+                    type: 'positive',
+                    icon: '📦',
+                    title: 'Free Shipping Advantage',
+                    detail: `Free shipping gives you $${(freeShippingProfit - paidShippingBest).toFixed(2)} more profit per sale. Plus, it typically increases conversion rates by 20-30%.`
+                });
+            } else if (freeShippingProfit < paidShippingBest - 2) {
+                insights.push({
+                    type: 'warning',
+                    icon: '⚠️',
+                    title: 'Free Shipping Trade-off',
+                    detail: `Free shipping costs you $${(paidShippingBest - freeShippingProfit).toFixed(2)} in profit per sale. However, it may still increase overall revenue through higher conversion rates.`
+                });
+            }
+
+            // Margin warnings
+            strategies.forEach((s, i) => {
+                if (s.profitMargin < 30 && s.profit > 0) {
+                    insights.push({
+                        type: 'warning',
+                        icon: '📉',
+                        title: `Strategy ${i + 1}: Thin Margins`,
+                        detail: `A ${s.profitMargin.toFixed(1)}% margin leaves little room for unexpected costs, sales, or advertising. Consider raising prices if market allows.`
+                    });
+                }
+                if (s.profit < 0) {
+                    insights.push({
+                        type: 'negative',
+                        icon: '🚨',
+                        title: `Strategy ${i + 1}: Losing Money!`,
+                        detail: `You're losing $${Math.abs(s.profit).toFixed(2)} per sale. Your costs exceed revenue. You MUST raise prices or reduce costs.`
+                    });
+                }
+            });
+
+            // Price comparison insight
+            const priceDiff = Math.max(price1, price2, price3) - Math.min(price1, price2, price3);
+            if (priceDiff > 5) {
+                insights.push({
+                    type: 'neutral',
+                    icon: '💭',
+                    title: 'Price Range Analysis',
+                    detail: `You're testing a $${priceDiff.toFixed(2)} price range. Monitor conversion rates closely—higher prices may reduce sales volume but increase per-sale profit.`
+                });
+            }
+
+            // Render insights
+            const insightsHtml = insights.map(insight => `
+                <div class="insight-item ${insight.type}">
+                    <div class="insight-icon">${insight.icon}</div>
+                    <div class="insight-content">
+                        <strong>${insight.title}</strong>
+                        <p>${insight.detail}</p>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('insightsList').innerHTML = insightsHtml;
+
+            // Show results
+            document.getElementById('results').classList.add('show');
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+    </script>
+</body>
+</html>

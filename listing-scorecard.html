@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etsy Listing Scorecard - Discover Your Success with Alayna Marie</title>
+<!--
+═══════════════════════════════════════════════════════════════════════
+  ETSY LISTING SCORECARD
+  Copyright © 2025 Alayna Marie Weimer. All Rights Reserved.
+  BRAND: Discover Your Success with Alayna Marie
+  For inquiries: alayna@ignitepositivechanges.com
+═══════════════════════════════════════════════════════════════════════
+-->
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #FFD93D 0%, #F4A261 50%, #E76F51 100%);
+            min-height: 100vh;
+            padding-bottom: 40px;
+        }
+        #passwordOverlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, #FFD93D 0%, #F4A261 50%, #E76F51 100%);
+            display: flex; align-items: center; justify-content: center; z-index: 9999;
+        }
+        #passwordOverlay.hidden { display: none; }
+        .password-box {
+            background: white; padding: 40px; border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); max-width: 400px; width: 90%; text-align: center;
+        }
+        .password-box h2 { color: #2c3e50; margin-bottom: 10px; font-size: 1.8em; }
+        .password-box p { color: #666; margin-bottom: 30px; }
+        .password-box input {
+            width: 100%; padding: 15px; border: 2px solid #e0e0e0;
+            border-radius: 10px; font-size: 1.1em; margin-bottom: 20px;
+        }
+        .password-box input:focus { outline: none; border-color: #F4A261; }
+        .password-box button {
+            width: 100%; background: linear-gradient(135deg, #FFD93D 0%, #F4A261 100%);
+            color: #2c3e50; border: none; padding: 15px; font-size: 1.1em;
+            border-radius: 10px; cursor: pointer; font-weight: 700;
+        }
+        .error-message { color: #dc2626; margin-top: 15px; font-size: 0.9em; display: none; }
+        .error-message.show { display: block; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+        .header {
+            background: white; border-radius: 20px; padding: 30px 20px;
+            text-align: center; margin-bottom: 30px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        .back-link {
+            display: inline-block; color: #F4A261; text-decoration: none;
+            margin-bottom: 15px; font-weight: 600;
+        }
+        .back-link:hover { text-decoration: underline; }
+        .logo-text {
+            font-size: 2.5em; font-weight: 700; color: #2c3e50; margin-bottom: 10px;
+        }
+        .logo-subtitle { font-size: 1.2em; color: #F4A261; font-weight: 600; margin-bottom: 20px; }
+        .header h1 { color: #2c3e50; font-size: 2.2em; margin-bottom: 10px; font-weight: 700; }
+        .why-matters {
+            background: white; border-radius: 15px; padding: 35px; margin-bottom: 30px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); border-top: 5px solid #FFD93D;
+        }
+        .why-matters h2 { color: #2c3e50; font-size: 1.8em; margin-bottom: 20px; font-weight: 700; }
+        .why-matters p { color: #2c3e50; font-size: 1.05em; margin-bottom: 15px; line-height: 1.7; }
+        .why-matters strong { color: #F4A261; }
+        .benefits-banner {
+            background: linear-gradient(180deg, #ffffff 0%, #FFE8CC 50%);
+            border: 3px solid #FFD93D; border-radius: 15px; padding: 30px; margin-bottom: 30px;
+            box-shadow: 0 6px 20px rgba(244, 162, 97, 0.3);
+        }
+        .benefits-banner h2 {
+            color: #2c3e50; font-size: 1.6em; margin-bottom: 20px; text-align: center; font-weight: 700;
+        }
+        .benefit-item {
+            display: flex; align-items: start; margin: 15px 0; padding: 12px;
+            background: white; border-radius: 10px; border-left: 4px solid #F4A261;
+        }
+        .benefit-icon { font-size: 1.5em; margin-right: 15px; min-width: 30px; }
+        .benefit-text strong { color: #2c3e50; display: block; margin-bottom: 5px; }
+        .benefit-text p { color: #666; margin: 0; }
+        .content-box {
+            background: white; border-radius: 15px; padding: 40px;
+            margin-bottom: 30px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+        .section {
+            margin-bottom: 30px; padding: 25px; background: #f8f9fa;
+            border-radius: 12px; border-left: 5px solid #F4A261;
+        }
+        .section h2 { color: #2c3e50; font-size: 1.5em; margin-bottom: 20px; font-weight: 700; }
+        .section h3 { color: #2c3e50; font-size: 1.2em; margin: 25px 0 15px 0; font-weight: 700; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; color: #2c3e50; font-weight: 600; font-size: 1.05em; }
+        .help-text { font-size: 0.85em; color: #666; margin-top: 4px; font-style: italic; }
+        input[type="number"], input[type="text"], textarea {
+            width: 100%; padding: 14px; border: 2px solid #e0e0e0;
+            border-radius: 8px; font-size: 1em; transition: border-color 0.3s;
+        }
+        textarea { min-height: 100px; resize: vertical; font-family: inherit; }
+        input:focus, textarea:focus { outline: none; border-color: #F4A261; box-shadow: 0 0 0 3px rgba(244, 162, 97, 0.1); }
+        .radio-group {
+            display: flex; flex-direction: column; gap: 10px;
+        }
+        .radio-option {
+            display: flex; align-items: center; gap: 10px; padding: 15px;
+            background: white; border-radius: 8px; cursor: pointer; border: 2px solid #e0e0e0;
+            transition: all 0.3s;
+        }
+        .radio-option:hover { border-color: #F4A261; }
+        .radio-option input[type="radio"] { width: 20px; height: 20px; cursor: pointer; }
+        .radio-option.selected { border-color: #F4A261; background: #fff8f0; }
+        .calculate-btn {
+            width: 100%; background: linear-gradient(135deg, #FFD93D 0%, #F4A261 100%);
+            color: #2c3e50; border: none; padding: 18px; font-size: 1.3em;
+            border-radius: 12px; cursor: pointer; font-weight: 700; margin-top: 20px;
+            transition: transform 0.2s, box-shadow 0.2s; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .calculate-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(244, 162, 97, 0.4); }
+        .results { display: none; margin-top: 30px; }
+        .results.show { display: block; }
+        .score-display {
+            background: linear-gradient(135deg, #FFD93D 0%, #F4A261 100%);
+            padding: 40px; border-radius: 15px; text-align: center; margin-bottom: 30px;
+            box-shadow: 0 6px 20px rgba(244, 162, 97, 0.3);
+        }
+        .score-display h2 { color: #2c3e50; font-size: 1.5em; margin-bottom: 15px; font-weight: 700; }
+        .score-number { font-size: 5em; font-weight: bold; color: #2c3e50; line-height: 1; }
+        .score-label { font-size: 1.2em; color: #2c3e50; margin-top: 10px; font-weight: 600; }
+        .score-meter {
+            width: 100%; height: 30px; background: #e0e0e0; border-radius: 15px;
+            overflow: hidden; margin: 20px 0;
+        }
+        .score-fill {
+            height: 100%; transition: width 1s ease-out;
+            border-radius: 15px;
+        }
+        .score-excellent { background: linear-gradient(90deg, #10b981 0%, #059669 100%); }
+        .score-good { background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%); }
+        .score-fair { background: linear-gradient(90deg, #f59e0b 0%, #d97706 100%); }
+        .score-poor { background: linear-gradient(90deg, #ef4444 0%, #dc2626 100%); }
+        .category-scores {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px; margin-bottom: 30px;
+        }
+        .category-card {
+            background: white; padding: 25px; border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); border-left: 5px solid #F4A261;
+        }
+        .category-card h3 { color: #2c3e50; font-size: 1.2em; margin-bottom: 15px; font-weight: 700; }
+        .category-score {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px; background: #f8f9fa; border-radius: 8px; margin-bottom: 10px;
+        }
+        .category-score .label { color: #666; font-weight: 600; }
+        .category-score .points { font-weight: bold; color: #2c3e50; font-size: 1.1em; }
+        .recommendations {
+            background: white; padding: 30px; border-radius: 15px;
+            margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .recommendations h3 { color: #2c3e50; margin-bottom: 20px; font-size: 1.5em; font-weight: 700; }
+        .recommendation-item {
+            display: flex; align-items: start; padding: 18px; margin-bottom: 15px;
+            background: #fff3e0; border-radius: 10px; border-left: 5px solid #f59e0b;
+        }
+        .recommendation-item.critical { background: #fee2e2; border-left-color: #dc2626; }
+        .recommendation-item.good { background: #d1fae5; border-left-color: #10b981; }
+        .recommendation-icon {
+            font-size: 1.8em; margin-right: 15px; min-width: 35px;
+        }
+        .recommendation-content { flex: 1; }
+        .recommendation-content strong {
+            color: #2c3e50; display: block; margin-bottom: 8px; font-size: 1.1em;
+        }
+        .recommendation-content p { color: #666; margin: 0; line-height: 1.6; }
+        .priority-badge {
+            display: inline-block; background: #dc2626; color: white;
+            padding: 3px 10px; border-radius: 4px; font-size: 0.75em;
+            font-weight: 700; text-transform: uppercase; margin-left: 10px;
+        }
+        .tip-box {
+            background: #e3f2fd; border-left: 5px solid #2196f3; padding: 25px;
+            border-radius: 10px; margin-top: 25px;
+        }
+        .tip-box strong { color: #1976d2; display: block; margin-bottom: 15px; font-size: 1.15em; }
+        .tip-box p { color: #2c3e50; margin: 12px 0; line-height: 1.7; }
+        .footer {
+            background: white; border-radius: 15px; padding: 30px; margin-top: 30px;
+            text-align: center; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+        .footer p { color: #666; margin: 8px 0; }
+        .footer a { color: #F4A261; text-decoration: none; font-weight: 600; }
+        .footer a:hover { text-decoration: underline; }
+        .footer .brand-name { color: #2c3e50; font-weight: 700; font-size: 1.2em; margin-top: 15px; }
+        .footer .copyright { color: #999; font-size: 0.9em; margin-top: 10px; }
+        @media (max-width: 768px) {
+            .logo-text { font-size: 1.8em; }
+            .header h1 { font-size: 1.6em; }
+            .score-number { font-size: 3.5em; }
+            .category-scores { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div id="passwordOverlay">
+        <div class="password-box">
+            <h2>🔐 Access Required</h2>
+            <p>Enter the password to access the Etsy Launch Toolkit</p>
+            <input type="password" id="passwordInput" placeholder="Enter password">
+            <button onclick="checkPassword()">Unlock Toolkit</button>
+            <div id="errorMessage" class="error-message">❌ Incorrect password. Please try again.</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <a href="index.html" class="back-link">← Back to Toolkit Hub</a>
+            <div class="logo-text">Discover Your Success</div>
+            <div class="logo-subtitle">with Alayna Marie</div>
+            <h1>⭐ Etsy Listing Scorecard</h1>
+        </div>
+
+        <div class="why-matters">
+            <h2>🎯 Why This Matters</h2>
+            <p>Your listing quality directly impacts your Etsy search ranking and conversion rate. The difference between a listing that ranks on page 1 versus page 5 can be the difference between 100 views per week and 5 views per week.</p>
+            <p>Most sellers don't realize they're losing sales because of fixable issues: unclear titles, weak photos, missing information, or poor SEO. These aren't creative problems—they're <strong>technical optimization issues</strong> that can be systematically improved.</p>
+            <p><strong>The Problem:</strong> Etsy's algorithm rewards listings that provide comprehensive information and positive user signals. A listing scoring below 70% is likely underperforming and leaving money on the table.</p>
+            <p>This scorecard evaluates your listing across 8 critical factors and provides specific, actionable recommendations to boost your visibility, traffic, and sales.</p>
+        </div>
+
+        <div class="benefits-banner">
+            <h2>✨ What You'll Get</h2>
+            <div class="benefit-item">
+                <div class="benefit-icon">📊</div>
+                <div class="benefit-text">
+                    <strong>Objective Listing Score (0-100)</strong>
+                    <p>Know exactly how your listing measures up against best practices</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">🔍</div>
+                <div class="benefit-text">
+                    <strong>Category-by-Category Analysis</strong>
+                    <p>See your scores for photos, SEO, description, pricing, and more</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">🎯</div>
+                <div class="benefit-text">
+                    <strong>Prioritized Action Items</strong>
+                    <p>Get specific recommendations ranked by impact on your performance</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">📈</div>
+                <div class="benefit-text">
+                    <strong>SEO & Visibility Insights</strong>
+                    <p>Understand what's holding you back in Etsy search</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">✅</div>
+                <div class="benefit-text">
+                    <strong>Quick Wins Identified</strong>
+                    <p>Find the easiest improvements that will drive the biggest results</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-box">
+            <div class="section">
+                <h2>📝 Rate Your Listing</h2>
+                <p style="color: #666; margin-bottom: 25px;">Answer honestly—this is for your benefit! Rate each aspect of your listing.</p>
+                
+                <h3>📸 Photos & Visuals</h3>
+                
+                <div class="form-group">
+                    <label>How many product photos do you have?</label>
+                    <div class="radio-group">
+                        <div class="radio-option" onclick="selectRadio('photoCount', '1-3')">
+                            <input type="radio" name="photoCount" value="1-3" id="photo1">
+                            <label for="photo1" style="margin: 0; cursor: pointer;">1-3 photos (0 points)</label>
+                        </div>
+                        <div class="radio-option" onclick="selectRadio('photoCount', '4-6')">
+                            <input type="radio" name="photoCount" value="4-6" id="photo2">
+                            <label for="photo2" style="margin: 0; cursor: pointer;">4-6 photos (7 points)</label>
+                        </div>
+                        <div class="radio-option" onclick="selectRadio('photoCount', '7-10')">
+                            <input type="radio" name="photoCount" value="7-10" id="photo3">
+                            <label for="photo3" style="margin: 0; cursor: pointer;">7-10 photos (15 points)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Photo quality assessment</label>
+                    <div class="radio-group">
+                        <div class="radio-option" onclick="selectRadio('photoQuality', 'poor')">
+                            <input type="radio" name="photoQuality" value="poor" id="quality1">
+                            <label for="quality1" style="margin: 0; cursor: pointer;">Phone photos, inconsistent lighting (0 points)</label>
+                        </div>
+                        <div class="radio-option" onclick="selectRadio('photoQuality', 'decent')">
+                            <input type="radio" name="photoQuality" value="decent" id="quality2">
+                            <label for="quality2" style="margin: 0; cursor: pointer;">Clear photos, decent lighting (7 points)</label>
+                        </div>
+                        <div class="radio-option" onclick="selectRadio('photoQuality', 'professional')">
+                            <input type="radio" name="photoQuality" value="professional" id="quality3">
+                            <label for="quality3" style="margin: 0; cursor: pointer;">Professional quality, consistent style (15 points)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>🔍 SEO & Discoverability</h3>
+
+                <div class="form-group">
+                    <label>Does your title include relevant keywords in the first 40 characters?</label>
+                    <div class="radio-group">
+                        <div class="radio-option" onclick="selectRadio('titleSEO', 'no')">
+                            <input type="radio" name="titleSEO" value="no" id="title1">
+                            <label for="title1" style="margin: 0; cursor: pointer;">No, it's mostly creative/vague (0 points)</label>
+                        </div>
+                        <div class="radio-option" onclick="selectRadio('titleSEO', 'some')">
+                            <input type="radio" name="titleSEO" value="some" id="title2">
+                            <label for="title2" style="margin: 0; cursor: pointer;">Some keywords but not prioritized (5 points)</label>
+                        </div>
+                        <div class="radio-option" onclick="selectRadio('titleSEO', 'yes')">
+                            <input type="radio" name="titleSEO" value="yes" id="title3">
+                            <label for="title3" style="margin: 0; cursor: pointer;">Yes, main keywords in first 40 chars (10 points)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>How many of the 13 available tags are you using?</label>
+                    <div class="radio-group">
+                        <div class="radio-option" onclick="selectRadio('tagUsage', 'few')">
+                            <input type="radio" name="tagUsage" value="few" id="tags1">
+                            <label for="tags1" style="margin: 0; cursor: pointer;">Less than 10 tags (0 points)</label>
+                        </div>
+                        <div class="radio-option" onclick="selectRadio('tagUsage', 'most')">
+                            <input type="radio" name="tagUsage" value="most" id="tags2">
+                            <label for="tags2" style="margin: 0; cursor: pointer;">10-12 tags (5 points)</label>
+                        </div>
+                        <div class="radio-option" onclick="selectRadio('tagUsage', 'all')">
+                            <input type="radio" name="tagUsage" value="all" id="tags3">
+                            <label for="tags3" style="margin: 0; cursor: pointer;">All 13 tags with relevant keywords (10 points)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>📝 Description & Information</h3>
+
+                <div class="form-group">
+                    <label>Description length and detail</label>
+                    <div class="radio-group">
+                        <div class="radio-option" onclick="selectRadio('descLength', 'short')">
+                            <input type="radio" name="descLength" value="short" id="desc1">
+                            <label for="desc1" style="margin: 0; cursor: pointer;">1-2 sentences, minimal info (0 points)</label>
+                        </div>
+                        <div class="radio-option" onclick="selectRadio('descLength', 'medium')">
+                            <input type="radio" name="descLength" value="medium" id="desc2">
+                            <label for="desc2" style="margin: 0; cursor: pointer;">Several paragraphs, covers basics (7 points)</label>
+                        </div>
+                        <div class="radio-option" onclick="selectRadio('descLength', 'comprehensive')">
+                            <input type="radio" name="descLength" value="comprehensive" id="desc3">
+                            <label for="desc3" style="margin: 0; cursor: pointer;">Comprehensive: dimensions, materials, care, uses (15 points)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Does your listing include dimensions/measurements?</label>
+                    <div class="radio-group">
+                        <div class="radio-option" onclick="selectRadio('dimensions', 'no')">
+                            <input type="radio" name="dimensions" value="no" id="dim1">
+                            <label for="dim1" style="margin: 0; cursor: pointer;">No measurements provided (0 points)</label>
+                        </div>
+                        <div class="radio-option" onclick="selectRadio('dimensions', 'yes')">
+                            <input type="radio" name="dimensions" value="yes" id="dim2">
+                            <label for="dim2" style="margin: 0; cursor: pointer;">Yes, all relevant measurements included (10 points)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>💰 Pricing & Policies</h3>
+
+                <div class="form-group">
+                    <label>Is your pricing competitive for your market?</label>
+                    <div class="radio-group">
+                        <div class="radio-option" onclick="selectRadio('pricing', 'high')">
+                            <input type="radio" name="pricing" value="high" id="price1">
+                            <label for="price1" style="margin: 0; cursor: pointer;">Significantly higher than competitors (0 points)</label>
+                        </div>
+                        <div class="radio-option" onclick="selectRadio('pricing', 'competitive')">
+                            <input type="radio" name="pricing" value="competitive" id="price2">
+                            <label for="price2" style="margin: 0; cursor: pointer;">In line with similar products (5 points)</label>
+                        </div>
+                        <div class="radio-option" onclick="selectRadio('pricing', 'value')">
+                            <input type="radio" name="pricing" value="value" id="price3">
+                            <label for="price3" style="margin: 0; cursor: pointer;">Great value compared to competition (10 points)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Shipping setup</label>
+                    <div class="radio-group">
+                        <div class="radio-option" onclick="selectRadio('shipping', 'unclear')">
+                            <input type="radio" name="shipping" value="unclear" id="ship1">
+                            <label for="ship1" style="margin: 0; cursor: pointer;">Unclear processing time or costs (0 points)</label>
+                        </div>
+                        <div class="radio-option" onclick="selectRadio('shipping', 'clear')">
+                            <input type="radio" name="shipping" value="clear" id="ship2">
+                            <label for="ship2" style="margin: 0; cursor: pointer;">Clear processing & shipping info (5 points)</label>
+                        </div>
+                        <div class="radio-option" onclick="selectRadio('shipping', 'free')">
+                            <input type="radio" name="shipping" value="free" id="ship3">
+                            <label for="ship3" style="margin: 0; cursor: pointer;">Free shipping offered (10 points)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="calculate-btn" onclick="calculateScore()">Get My Listing Score</button>
+            </div>
+
+            <div id="results" class="results">
+                <div class="score-display">
+                    <h2>Your Listing Score</h2>
+                    <div class="score-number" id="totalScore">0</div>
+                    <div class="score-label" id="scoreLabel">Needs Work</div>
+                    <div class="score-meter">
+                        <div class="score-fill" id="scoreFill" style="width: 0%;"></div>
+                    </div>
+                </div>
+
+                <div class="category-scores">
+                    <div class="category-card">
+                        <h3>📸 Photos & Visuals</h3>
+                        <div class="category-score">
+                            <span class="label">Score:</span>
+                            <span class="points" id="photoScore">0/30</span>
+                        </div>
+                    </div>
+                    <div class="category-card">
+                        <h3>🔍 SEO & Keywords</h3>
+                        <div class="category-score">
+                            <span class="label">Score:</span>
+                            <span class="points" id="seoScore">0/20</span>
+                        </div>
+                    </div>
+                    <div class="category-card">
+                        <h3>📝 Description</h3>
+                        <div class="category-score">
+                            <span class="label">Score:</span>
+                            <span class="points" id="descScore">0/25</span>
+                        </div>
+                    </div>
+                    <div class="category-card">
+                        <h3>💰 Pricing & Policies</h3>
+                        <div class="category-score">
+                            <span class="label">Score:</span>
+                            <span class="points" id="pricingScore">0/25</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recommendations">
+                    <h3>🎯 Your Action Plan</h3>
+                    <div id="recommendationsList">
+                        <!-- Recommendations will be inserted here -->
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <strong>💡 Making the Most of Your Score</strong>
+                    <p><strong>85-100 (Excellent):</strong> Your listing is well-optimized. Focus on driving traffic through Etsy Ads, social media, and building reviews.</p>
+                    <p><strong>70-84 (Good):</strong> Solid foundation but room for improvement. Focus on the recommendations to boost conversion rate.</p>
+                    <p><strong>50-69 (Fair):</strong> Significant optimization needed. Prioritize critical items—they're costing you sales.</p>
+                    <p><strong>Below 50 (Needs Work):</strong> Major gaps in your listing. Work through recommendations systematically. This is fixable!</p>
+                    <p><strong>Re-evaluate Regularly:</strong> As Etsy's algorithm evolves and competition changes, run this scorecard every 2-3 months to stay competitive.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Need professional support as you grow?</p>
+            <p><strong>Nonprofit Resources:</strong> <a href="https://igniteempowermentfoundation.org" target="_blank">igniteempowermentfoundation.org</a></p>
+            <p><strong>Fractional Services:</strong> <a href="https://www.ignitepositivechanges.com" target="_blank">www.ignitepositivechanges.com</a></p>
+            <p class="brand-name">Discover Your Success with Alayna Marie</p>
+            <p class="copyright">© 2025 Alayna Marie Weimer. All Rights Reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        const CORRECT_PASSWORD = "LaunchMyShop2025";
+        window.addEventListener('DOMContentLoaded', function() {
+            if (sessionStorage.getItem('etsyToolkitAuth') === 'true') {
+                document.getElementById('passwordOverlay').classList.add('hidden');
+            }
+        });
+        function checkPassword() {
+            const input = document.getElementById('passwordInput').value;
+            if (input === CORRECT_PASSWORD) {
+                sessionStorage.setItem('etsyToolkitAuth', 'true');
+                document.getElementById('passwordOverlay').classList.add('hidden');
+            } else {
+                document.getElementById('errorMessage').classList.add('show');
+                document.getElementById('passwordInput').value = '';
+            }
+        }
+        document.getElementById('passwordInput')?.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') checkPassword();
+        });
+
+        function selectRadio(groupName, value) {
+            document.querySelectorAll(`input[name="${groupName}"]`).forEach(radio => {
+                if (radio.value === value) {
+                    radio.checked = true;
+                    radio.closest('.radio-option').classList.add('selected');
+                } else {
+                    radio.closest('.radio-option').classList.remove('selected');
+                }
+            });
+        }
+
+        function calculateScore() {
+            // Get all selections
+            const photoCount = document.querySelector('input[name="photoCount"]:checked')?.value;
+            const photoQuality = document.querySelector('input[name="photoQuality"]:checked')?.value;
+            const titleSEO = document.querySelector('input[name="titleSEO"]:checked')?.value;
+            const tagUsage = document.querySelector('input[name="tagUsage"]:checked')?.value;
+            const descLength = document.querySelector('input[name="descLength"]:checked')?.value;
+            const dimensions = document.querySelector('input[name="dimensions"]:checked')?.value;
+            const pricing = document.querySelector('input[name="pricing"]:checked')?.value;
+            const shipping = document.querySelector('input[name="shipping"]:checked')?.value;
+
+            // Check if all fields are completed
+            if (!photoCount || !photoQuality || !titleSEO || !tagUsage || !descLength || 
+                !dimensions || !pricing || !shipping) {
+                alert('Please answer all questions to get your complete score.');
+                return;
+            }
+
+            // Calculate scores
+            const scores = {
+                photoCount: photoCount === '1-3' ? 0 : photoCount === '4-6' ? 7 : 15,
+                photoQuality: photoQuality === 'poor' ? 0 : photoQuality === 'decent' ? 7 : 15,
+                titleSEO: titleSEO === 'no' ? 0 : titleSEO === 'some' ? 5 : 10,
+                tagUsage: tagUsage === 'few' ? 0 : tagUsage === 'most' ? 5 : 10,
+                descLength: descLength === 'short' ? 0 : descLength === 'medium' ? 7 : 15,
+                dimensions: dimensions === 'no' ? 0 : 10,
+                pricing: pricing === 'high' ? 0 : pricing === 'competitive' ? 5 : 10,
+                shipping: shipping === 'unclear' ? 0 : shipping === 'clear' ? 5 : 10
+            };
+
+            const photoScore = scores.photoCount + scores.photoQuality;
+            const seoScore = scores.titleSEO + scores.tagUsage;
+            const descScore = scores.descLength + scores.dimensions;
+            const pricingScore = scores.pricing + scores.shipping;
+            const totalScore = photoScore + seoScore + descScore + pricingScore;
+
+            // Update display
+            document.getElementById('totalScore').textContent = totalScore;
+            document.getElementById('photoScore').textContent = `${photoScore}/30`;
+            document.getElementById('seoScore').textContent = `${seoScore}/20`;
+            document.getElementById('descScore').textContent = `${descScore}/25`;
+            document.getElementById('pricingScore').textContent = `${pricingScore}/25`;
+
+            // Update score label and meter
+            let label, fillClass;
+            if (totalScore >= 85) {
+                label = 'Excellent! 🌟';
+                fillClass = 'score-excellent';
+            } else if (totalScore >= 70) {
+                label = 'Good Work! 👍';
+                fillClass = 'score-good';
+            } else if (totalScore >= 50) {
+                label = 'Needs Improvement 📈';
+                fillClass = 'score-fair';
+            } else {
+                label = 'Needs Major Work 🔧';
+                fillClass = 'score-poor';
+            }
+            document.getElementById('scoreLabel').textContent = label;
+            
+            const scoreFill = document.getElementById('scoreFill');
+            scoreFill.className = 'score-fill ' + fillClass;
+            setTimeout(() => {
+                scoreFill.style.width = totalScore + '%';
+            }, 100);
+
+            // Generate recommendations
+            const recommendations = [];
+
+            // Photo recommendations
+            if (photoCount === '1-3') {
+                recommendations.push({
+                    type: 'critical',
+                    icon: '📸',
+                    title: 'Add More Photos (CRITICAL)',
+                    detail: 'You need at least 7-10 photos. Show your product from every angle, include size comparisons, lifestyle shots, and detail close-ups. More photos = higher conversion rate.'
+                });
+            } else if (photoCount === '4-6') {
+                recommendations.push({
+                    type: 'warning',
+                    icon: '📸',
+                    title: 'Increase Photo Count',
+                    detail: 'Aim for 10 photos total. Add lifestyle shots, detail images, and packaging photos. Use all available photo slots—they\'re free!'
+                });
+            }
+
+            if (photoQuality === 'poor') {
+                recommendations.push({
+                    type: 'critical',
+                    icon: '💡',
+                    title: 'Improve Photo Quality (CRITICAL)',
+                    detail: 'Invest in better lighting (natural window light works great) or a lightbox. Use a simple backdrop. Consistent, professional photos dramatically increase sales.'
+                });
+            } else if (photoQuality === 'decent') {
+                recommendations.push({
+                    type: 'warning',
+                    icon: '✨',
+                    title: 'Elevate Photo Quality',
+                    detail: 'Consider using a tripod for sharper images, adding lifestyle shots with props, or creating a branded photo style that makes your listings instantly recognizable.'
+                });
+            }
+
+            // SEO recommendations
+            if (titleSEO === 'no') {
+                recommendations.push({
+                    type: 'critical',
+                    icon: '🔍',
+                    title: 'Optimize Your Title for SEO (CRITICAL)',
+                    detail: 'Put your main keywords in the FIRST 40 characters of your title. This is what shows in search results. Example: "Leather Journal | Handmade Notebook | Personalized Gift" NOT "Beautiful Creation".'
+                });
+            } else if (titleSEO === 'some') {
+                recommendations.push({
+                    type: 'warning',
+                    icon: '📝',
+                    title: 'Prioritize Keywords in Title',
+                    detail: 'Move your most important keywords to the beginning of your title. The first 40 characters are prime real estate for Etsy search.'
+                });
+            }
+
+            if (tagUsage === 'few') {
+                recommendations.push({
+                    type: 'critical',
+                    icon: '🏷️',
+                    title: 'Use All 13 Tags (CRITICAL)',
+                    detail: 'You\'re leaving discoverability on the table! Fill all 13 tag slots with relevant keywords. Use tools like eRank or Marmalead to find high-traffic keywords.'
+                });
+            } else if (tagUsage === 'most') {
+                recommendations.push({
+                    type: 'good',
+                    icon: '✅',
+                    title: 'Complete Your Tags',
+                    detail: 'You\'re close! Fill those remaining tag slots. Include synonyms, related terms, and long-tail keywords to capture more search traffic.'
+                });
+            }
+
+            // Description recommendations
+            if (descLength === 'short') {
+                recommendations.push({
+                    type: 'critical',
+                    icon: '📄',
+                    title: 'Expand Your Description (CRITICAL)',
+                    detail: 'Write at least 3-5 detailed paragraphs. Include: what it is, dimensions, materials, how it\'s made, how to use it, care instructions, and FAQs. More content = better SEO and fewer customer questions.'
+                });
+            } else if (descLength === 'medium') {
+                recommendations.push({
+                    type: 'warning',
+                    icon: '📋',
+                    title: 'Add More Detail to Description',
+                    detail: 'Include care instructions, suggested uses, your brand story, and answer common questions. Comprehensive descriptions build trust and reduce returns.'
+                });
+            }
+
+            if (dimensions === 'no') {
+                recommendations.push({
+                    type: 'critical',
+                    icon: '📏',
+                    title: 'Add Measurements (CRITICAL)',
+                    detail: 'ALWAYS include dimensions/measurements! This is the #1 reason for returns. List size in inches AND centimeters. Include weight if relevant.'
+                });
+            }
+
+            // Pricing recommendations
+            if (pricing === 'high') {
+                recommendations.push({
+                    type: 'critical',
+                    icon: '💰',
+                    title: 'Reevaluate Pricing Strategy (CRITICAL)',
+                    detail: 'Your pricing is significantly above competitors. Either lower your price OR justify the premium with superior quality, unique features, or exceptional branding in your listing.'
+                });
+            } else if (pricing === 'value') {
+                recommendations.push({
+                    type: 'good',
+                    icon: '🎉',
+                    title: 'Great Value Pricing!',
+                    detail: 'Your competitive pricing is a strength. Highlight this value in your descriptions and consider mentioning "Great value compared to similar products" to help conversions.'
+                });
+            }
+
+            if (shipping === 'unclear') {
+                recommendations.push({
+                    type: 'critical',
+                    icon: '📦',
+                    title: 'Clarify Shipping Information (CRITICAL)',
+                    detail: 'Set clear processing times (1-3 business days if possible) and accurate shipping costs. Unclear shipping is a major conversion killer and increases cart abandonment.'
+                });
+            } else if (shipping === 'free') {
+                recommendations.push({
+                    type: 'good',
+                    icon: '🎁',
+                    title: 'Free Shipping Advantage!',
+                    detail: 'Excellent! Free shipping increases conversion rates by 20-30%. Make sure to prominently display "FREE SHIPPING" in your title or first photo.'
+                });
+            }
+
+            // Add general recommendations based on total score
+            if (totalScore < 70) {
+                recommendations.unshift({
+                    type: 'critical',
+                    icon: '🚨',
+                    title: 'Urgent: Complete Listing Overhaul Needed',
+                    detail: 'Your listing is significantly underperforming. Block out 2-3 hours this week to work through ALL the recommendations below. These fixes will directly increase your sales.'
+                });
+            }
+
+            // Render recommendations
+            const recList = document.getElementById('recommendationsList');
+            recList.innerHTML = recommendations.map(rec => `
+                <div class="recommendation-item ${rec.type}">
+                    <div class="recommendation-icon">${rec.icon}</div>
+                    <div class="recommendation-content">
+                        <strong>${rec.title}</strong>
+                        <p>${rec.detail}</p>
+                    </div>
+                </div>
+            `).join('');
+
+            // Show results
+            document.getElementById('results').classList.add('show');
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+    </script>
+</body>
+</html>
